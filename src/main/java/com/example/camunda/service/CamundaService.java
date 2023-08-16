@@ -1,13 +1,18 @@
 package com.example.camunda.service;
 
-import com.example.camunda.model.dto.ProcessInformation;
+import com.example.camunda.model.dto.Activity;
+import com.example.camunda.model.dto.Process;
 import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.impl.persistence.entity.ProcessInstanceWithVariablesImpl;
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.runtime.ActivityInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CamundaService {
@@ -15,27 +20,30 @@ public class CamundaService {
     @Autowired
     private ProcessEngine processEngine;
 
-    public ProcessInformation startWorkflow(String processDefinitionKey, Map<String, Object> variables) {
-        String processInstanceId = processEngine.getRuntimeService().startProcessInstanceByKey(processDefinitionKey, variables).getProcessInstanceId();
-        String executionId = processEngine.getRuntimeService().createExecutionQuery().active().processInstanceId(processInstanceId).singleResult().getId();
-        return ProcessInformation.builder().processInstanceId(processInstanceId).businessKey(processDefinitionKey).variables(getVariables(executionId)).build();
+    @Autowired
+    private RuntimeService runtimeService;
+
+    public Process startWorkflow(String processDefinitionKey, Map<String, Object> variables) {
+        String processInstanceId = runtimeService.startProcessInstanceByKey(processDefinitionKey, variables).getProcessInstanceId();
+        return getProcessInstance(processInstanceId);
+    }
+
+    public Process getProcessInstance(String processInstanceId) {
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        if (processInstance != null) {
+            ActivityInstance activityInstance = runtimeService.getActivityInstance(processInstanceId);
+            List<Activity> activities = Arrays.stream(activityInstance.getChildActivityInstances()).map(childActivityInstance -> new Activity(childActivityInstance.getActivityName(), childActivityInstance.getActivityType())).collect(Collectors.toList());
+            return Process.builder().activeActivities(activities).processInstanceId(processInstanceId).businessKey(processInstance.getBusinessKey()).variables(getVariables(processInstanceId)).build();
+        }
+        throw new RuntimeException();
     }
 
     public Map<String, Object> getVariables(String executionId) {
-        return processEngine.getRuntimeService().getVariables(executionId);
+        return runtimeService.getVariables(executionId);
     }
 
-    public ProcessInformation sendMessage(String messageName, String businessKey, Map<String, Object> params) {
-        processEngine.getRuntimeService().correlateMessage(messageName, businessKey, params);
-        String processInstanceId = processEngine.getRuntimeService().createProcessInstanceQuery().processInstanceBusinessKey(businessKey).singleResult().getProcessInstanceId();
-        return ProcessInformation.builder().variables(getVariables(processInstanceId)).build();
-    }
-
-    public ProcessInformation getProcessInstance(String processInstanceId) {
-        ProcessInstance processInstance = processEngine.getRuntimeService().createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-        if (processInstance != null) {
-            return ProcessInformation.builder().processInstanceId(processInstanceId).businessKey(processInstance.getBusinessKey()).variables(getVariables(processInstanceId)).build();
-        }
-        throw new RuntimeException();
+    public Process sendMessage(String messageName, String processInstanceId, Map<String, Object> params) {
+        runtimeService.createMessageCorrelation(messageName).processInstanceId(processInstanceId).setVariables(params).correlate();
+        return getProcessInstance(processInstanceId);
     }
 }

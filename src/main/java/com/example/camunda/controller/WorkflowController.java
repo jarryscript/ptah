@@ -1,7 +1,7 @@
 package com.example.camunda.controller;
 
-
-import com.example.camunda.model.dto.ProcessInformation;
+import com.example.camunda.model.dto.Message;
+import com.example.camunda.model.dto.Process;
 import com.example.camunda.service.CamundaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,13 @@ public class WorkflowController {
     private CamundaService camundaService;
 
     @PostMapping("/start")
-    public ResponseEntity<?> startWorkflow(@RequestBody ProcessInformation processInformation) {
-        return ResponseEntity.ok(camundaService.startWorkflow(processInformation.getBusinessKey(),processInformation.getVariables()));
+    public ResponseEntity<?> startWorkflow(@RequestBody Process process) {
+        return ResponseEntity.ok(camundaService.startWorkflow(process.getBusinessKey(), process.getVariables()));
     }
 
     @PostMapping("/message")
-    public ResponseEntity<?> sendMessage(@RequestBody ProcessInformation processInformation) {
-        return ResponseEntity.ok(camundaService.sendMessage(processInformation.getMessageName(), processInformation.getBusinessKey(), processInformation.getVariables()));
+    public ResponseEntity<?> sendMessage(@RequestBody Message message) {
+        return ResponseEntity.ok(camundaService.sendMessage(message.getMessageName(), message.getProcessInstanceId(), message.getVariables()));
     }
 
     @GetMapping("variables/{processInstanceId}")
