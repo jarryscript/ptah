@@ -1,6 +1,9 @@
-package com.example.user;
+package com.example.service.user;
 
-import com.example.auth.RegisterRequest;
+import com.example.dto.user.RegisterRequest;
+import com.example.dto.user.UserDto;
+import com.example.entity.user.User;
+import com.example.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

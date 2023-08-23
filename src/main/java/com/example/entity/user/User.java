@@ -1,4 +1,4 @@
-package com.example.user;
+package com.example.entity.user;
 
 import com.example.auth.PasswordEncryptor;
 import jakarta.persistence.Convert;

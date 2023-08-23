@@ -1,19 +1,12 @@
 package com.example.auth;
 
+import com.example.entity.user.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
-@Service
-public class JwtService {
-    public String extractUserName(String jwt) {
-        return null;
-    }
+public interface JwtService {
+    String extractUserName(String jwt);
 
-    public boolean isTokenValid(String jwt, UserDetails userDetails) {
-        return true;
-    }
+    boolean isTokenValid(String jwt, UserDetails userDetails);
 
-    public String generateToken(Object user) {
-        return null;
-    }
+    String generateToken(User user);
 }

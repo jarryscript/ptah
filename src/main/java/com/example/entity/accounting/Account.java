@@ -1,4 +1,4 @@
-package com.example.accounting.model;
+package com.example.entity.accounting;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

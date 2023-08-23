@@ -1,6 +1,8 @@
 package com.example.auth;
 
-import com.example.user.UserRepository;
+import com.example.entity.user.User;
+import com.example.repository.user.UserRepository;
+import com.example.dto.user.LoginResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class AuthenticationService {
 
     public LoginResponse login(String login, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, password));
-        var user = userRepository.findByLogin(login).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+        User user = userRepository.findByLogin(login).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         return LoginResponse.builder().accessToken(jwtService.generateToken(user)).build();
     }
 

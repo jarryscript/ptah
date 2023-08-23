@@ -1,6 +1,6 @@
 package com.example.auth;
 
-import com.example.user.UserRepository;
+import com.example.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

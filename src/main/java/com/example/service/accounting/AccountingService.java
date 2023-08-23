@@ -1,16 +1,11 @@
-package com.example.accounting.service;
+package com.example.service.accounting;
 
-import com.example.accounting.model.Account;
-import com.example.accounting.model.Transaction;
-import com.example.accounting.model.TransactionDirection;
-import com.example.accounting.repository.AccountRepository;
-import com.example.accounting.repository.TransactionRepository;
+import com.example.entity.accounting.Account;
+import com.example.repository.accounting.AccountRepository;
+import com.example.repository.accounting.TransactionRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**

@@ -1,4 +1,4 @@
-package com.example.auth;
+package com.example.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
