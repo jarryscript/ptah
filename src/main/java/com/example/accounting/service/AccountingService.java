@@ -45,7 +45,7 @@ import java.util.Objects;
  * CR,
  * DR;
  */
-@Service
+//@Service
 @AllArgsConstructor
 public class AccountingService {
 
@@ -61,11 +61,11 @@ public class AccountingService {
 
     private void updateAccountBalanceForWithdrawal(Account account, BigDecimal amount) {
         account.setBalance(account.getBalance().subtract(amount));
-        accountRepository.save(account);
+//        accountRepository.save(account);
     }
 
     private void createWithdrawalTransactions(Account account, BigDecimal amount) {
-        transactionRepository.saveAll(Arrays.asList(new Transaction(account, TransactionDirection.DEBIT, amount, LocalTime.now()), new Transaction(getSystemAccount(), TransactionDirection.CREDIT, amount, LocalTime.now())));
+//        transactionRepository.saveAll(Arrays.asList(new Transaction(account, TransactionDirection.DEBIT, amount, LocalTime.now()), new Transaction(getSystemAccount(), TransactionDirection.CREDIT, amount, LocalTime.now())));
     }
 
     private Account getSystemAccount() {

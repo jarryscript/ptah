@@ -1,4 +1,4 @@
-package com.example.camunda;
+package com.example;
 
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
@@ -13,11 +13,11 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableProcessApplication
-public class CamundaApplication {
-    private final Logger logger = LoggerFactory.getLogger(CamundaApplication.class);
+public class Application {
+    private final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(CamundaApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @EventListener
