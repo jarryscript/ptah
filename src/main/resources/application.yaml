@@ -11,5 +11,5 @@ spring:
             pool-name: MyHikariPool
     jpa:
         hibernate:
-            ddl-auto: update
+            ddl-auto: create
 

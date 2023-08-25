@@ -3,12 +3,14 @@ package com.ptah.common.impl;
 import com.ptah.common.ObjectStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class RedisService implements ObjectStorageService {
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public String getByKey(String key) {

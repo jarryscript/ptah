@@ -56,7 +56,7 @@ public class AccountingService {
 
     private void updateAccountBalanceForWithdrawal(Account account, BigDecimal amount) {
         account.setBalance(account.getBalance().subtract(amount));
-//        accountRepository.save(account);
+        accountRepository.save(account);
     }
 
     private void createWithdrawalTransactions(Account account, BigDecimal amount) {
