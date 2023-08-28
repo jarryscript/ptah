@@ -1,7 +1,7 @@
 package com.ptah.repository.contract;
 
-import com.ptah.entity.contract.ContractParty;
+import com.ptah.entity.contract.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ContractPartyRepository extends JpaRepository<ContractParty,Long> {
+public interface ContractPartyRepository extends JpaRepository<Participant,Long> {
 }

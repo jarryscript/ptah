@@ -3,8 +3,8 @@ package com.ptah.service.user;
 import cn.hutool.core.lang.Validator;
 import com.ptah.dto.user.RegisterRequest;
 import com.ptah.dto.user.UserDto;
-import com.ptah.entity.user.User;
-import com.ptah.repository.user.UserRepository;
+import com.ptah.entity.userprofiling.User;
+import com.ptah.repository.userprofiling.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

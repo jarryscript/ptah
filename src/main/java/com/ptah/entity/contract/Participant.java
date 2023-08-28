@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Inheritance(strategy= InheritanceType.JOINED)
-public class ContractParty extends BaseEntity {
+public class Participant extends BaseEntity {
     private String name;
 
 }

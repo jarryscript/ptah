@@ -1,7 +1,7 @@
 package com.ptah.auth;
 
-import com.ptah.entity.user.User;
-import com.ptah.repository.user.UserRepository;
+import com.ptah.entity.userprofiling.User;
+import com.ptah.repository.userprofiling.UserRepository;
 import com.ptah.dto.user.LoginResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

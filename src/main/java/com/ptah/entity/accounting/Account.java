@@ -1,11 +1,8 @@
 package com.ptah.entity.accounting;
 
 import com.ptah.common.BaseEntity;
-import com.ptah.entity.contract.ContractParty;
+import com.ptah.entity.contract.Participant;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -24,6 +21,5 @@ public class Account extends BaseEntity {
     private String name;
     private BigDecimal balance;
     @OneToOne
-    @JoinColumn(name="contract_party_id")
-    private ContractParty contractParty;
+    private Participant accountOwner;
 }

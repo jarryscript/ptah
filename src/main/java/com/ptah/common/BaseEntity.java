@@ -1,6 +1,7 @@
 package com.ptah.common;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,4 +24,6 @@ public class BaseEntity {
     private Instant lastUpdatedOn;
     @CreationTimestamp
     private Instant createdOn;
+
+
 }

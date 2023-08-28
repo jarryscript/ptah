@@ -1,6 +1,5 @@
-package com.ptah.entity.user;
+package com.ptah.entity.userprofiling;
 
-import com.ptah.entity.organization.Organization;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,11 +10,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class UserNomination {
+public class OrganizationNomination {
     @ManyToOne
     private User user;
     @ManyToOne
     private Organization organization;
-    @Enumerated(EnumType.STRING)
-    private ProjectRole ProjectRole;
+    private String organizationRole;
 }

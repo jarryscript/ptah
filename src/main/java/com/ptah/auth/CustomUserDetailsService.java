@@ -1,6 +1,6 @@
 package com.ptah.auth;
 
-import com.ptah.repository.user.UserRepository;
+import com.ptah.repository.userprofiling.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
