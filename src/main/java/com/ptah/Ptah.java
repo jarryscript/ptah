@@ -13,11 +13,11 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableProcessApplication
-public class Application {
-    private final Logger logger = LoggerFactory.getLogger(Application.class);
+public class Ptah {
+    private final Logger logger = LoggerFactory.getLogger(Ptah.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(Ptah.class, args);
     }
 
     @EventListener

@@ -1,7 +1,6 @@
 package com.ptah.common;
 
 
-import cn.hutool.core.bean.BeanUtil;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,7 +15,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +23,4 @@ public class BaseEntity {
     private Instant lastUpdatedOn;
     @CreationTimestamp
     private Instant createdOn;
-
-
 }

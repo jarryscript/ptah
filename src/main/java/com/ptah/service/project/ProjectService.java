@@ -19,4 +19,7 @@ public class ProjectService {
         return Optional.ofNullable(projectNominationRepository.findByUserId(userId)).orElseGet(Collections::emptyList).stream().map(ProjectNomination::getProject).map(project -> new ProjectDto().fromEntity(project)).collect(Collectors.toList());
     }
 
+    public void create(ProjectDto projectDto) {
+
+    }
 }

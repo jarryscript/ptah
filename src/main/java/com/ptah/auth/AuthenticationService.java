@@ -2,7 +2,7 @@ package com.ptah.auth;
 
 import com.ptah.entity.userprofiling.User;
 import com.ptah.repository.userprofiling.UserRepository;
-import com.ptah.dto.user.LoginResponse;
+import com.ptah.dto.userprofiling.LoginResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.ptah.common.impl;
 
-import com.ptah.common.ObjectStorageService;
+import com.ptah.common.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class RedisService implements ObjectStorageService {
+public class RedisService implements CacheService {
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
 

@@ -1,12 +1,11 @@
-package com.ptah.dto.user;
-
+package com.ptah.dto.userprofiling;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterRequest {
+public class LoginRequest {
     private String login;
     private String password;
 }

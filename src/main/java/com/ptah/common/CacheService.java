@@ -1,11 +1,9 @@
 package com.ptah.common;
 
-public interface ObjectStorageService {
+public interface CacheService {
     <T> T getByKey(String key, Class<T> type);
 
-    default String getByKey(String key){
-        return getByKey(key,String.class);
-    }
+    String getByKey(String key);
 
     void setValue(String key, Object value);
 

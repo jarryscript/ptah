@@ -1,4 +1,4 @@
-package com.ptah.dto.user;
+package com.ptah.dto.userprofiling;
 
 import lombok.Builder;
 

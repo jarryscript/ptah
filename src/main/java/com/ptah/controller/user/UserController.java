@@ -1,10 +1,10 @@
 package com.ptah.controller.user;
 
 import com.ptah.auth.AuthenticationService;
-import com.ptah.dto.user.LoginRequest;
-import com.ptah.dto.user.LoginResponse;
-import com.ptah.dto.user.RegisterRequest;
-import com.ptah.dto.user.UserDto;
+import com.ptah.dto.userprofiling.LoginRequest;
+import com.ptah.dto.userprofiling.LoginResponse;
+import com.ptah.dto.userprofiling.RegisterRequest;
+import com.ptah.dto.userprofiling.UserDto;
 import com.ptah.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
