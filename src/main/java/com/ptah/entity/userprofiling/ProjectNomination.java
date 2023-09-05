@@ -18,5 +18,5 @@ public class ProjectNomination extends BaseEntity {
     @ManyToOne
     private Project project;
     @Enumerated(EnumType.STRING)
-    private ProjectRole ProjectRole;
+    private ProjectRole projectRole;
 }

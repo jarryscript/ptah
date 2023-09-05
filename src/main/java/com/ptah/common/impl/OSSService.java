@@ -15,14 +15,14 @@ import java.util.Optional;
 
 @Service
 public class OSSService implements ObjectStorageService {
-    @Value("${oss.endpoint}")
+    @Value("${oss.endpoint:}")
     private String ossEndpoint;
-    @Value("${oss.accessKeyId}")
+    @Value("${oss.accessKeyId:}")
     private String accessKeyId;
-    @Value("${oss.accessKeySecret}")
+    @Value("${oss.accessKeySecret:}")
     private String accessKeySecret;
 
-    @Value("${oss.bucketName}")
+    @Value("${oss.bucketName:}")
     private String bucketName;
 
     @Override

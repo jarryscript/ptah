@@ -7,7 +7,7 @@ public abstract class BaseDto<T> {
     public BaseDto() {
     }
 
-    public T fromEntity(BaseEntity entity) {
+    public  T fromEntity(BaseEntity entity) {
         return (T) BeanUtil.toBean(entity, this.getClass());
     }
 }

@@ -27,6 +27,7 @@ public class User extends Participant {
     private String password;
     @OneToOne
     private ContactInfo contactInfo;
+    @OneToOne
     private Organization currentOrganization;
 
 }

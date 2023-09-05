@@ -1,9 +1,14 @@
 package com.ptah.service.accounting;
 
+import com.ptah.common.Errors;
+import com.ptah.common.exceptions.ApplicationException;
+import com.ptah.common.util.NumberUtils;
 import com.ptah.entity.accounting.Account;
 import com.ptah.repository.accounting.AccountRepository;
 import com.ptah.repository.accounting.TransactionRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -42,7 +47,11 @@ import java.util.Objects;
  */
 //@Service
 @AllArgsConstructor
+@Transactional
 public class AccountingService {
+
+    private static final Long SYSTEM_ACCOUNT_ID = 1L;
+    private static final String SYSTEM_ACCOUNT_NAME = "SYSTEM ACCOUNT";
 
     private TransactionRepository transactionRepository;
     private AccountRepository accountRepository;
@@ -63,15 +72,13 @@ public class AccountingService {
 //        transactionRepository.saveAll(Arrays.asList(new Transaction(account, TransactionDirection.DEBIT, amount, LocalTime.now()), new Transaction(getSystemAccount(), TransactionDirection.CREDIT, amount, LocalTime.now())));
     }
 
-    private Account getSystemAccount() {
-        return null;
-    }
-
     private void validateAccountForWithdrawal(Account account, BigDecimal amount) {
         Objects.requireNonNull(account);
         Objects.requireNonNull(amount);
+        if (!NumberUtils.isGreaterThanOrEqualsTo(account.getBalance(), amount)) {
+            throw new ApplicationException(Errors.INSUFFICIENT_FUND);
+        }
     }
-
 
     public void deposit(Account account, BigDecimal amount) {
         validateAccountForDeposit(account, amount);
@@ -108,5 +115,16 @@ public class AccountingService {
 
     private void validateAccountsForTransfer(Account sourceAccount, Account targetAccount, BigDecimal amount) {
 
+    }
+
+    private Account getSystemAccount() {
+        return accountRepository.findById(SYSTEM_ACCOUNT_ID).orElseGet(this::createSystemAccount);
+    }
+
+    private Account createSystemAccount() {
+        Account systemAccount = new Account();
+        systemAccount.setId(SYSTEM_ACCOUNT_ID);
+        systemAccount.setName(SYSTEM_ACCOUNT_NAME);
+        return accountRepository.save(systemAccount);
     }
 }

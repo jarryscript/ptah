@@ -9,6 +9,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Project extends BaseEntity {
     private String name;
+    @OneToOne
     private Participant owner;
     private ProjectStatus status;
     @OneToOne

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class WithAuthorityAspect {
 
     @Pointcut("@annotation(withAuthority)")
-    public void hasPermissionInterceptor(WithAuthority withAuthority) {
+    public void hasAuthorityInterceptor(WithAuthority withAuthority) {
     }
 
     @Before(value = "hasAuthorityInterceptor(withAuthority)", argNames = "joinPoint,withAuthority")

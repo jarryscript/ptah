@@ -1,5 +1,6 @@
 package com.ptah.entity.userprofiling;
 
+import com.ptah.common.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class OrganizationNomination {
+public class OrganizationNomination extends BaseEntity {
     @ManyToOne
     private User user;
     @ManyToOne
