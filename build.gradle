@@ -81,3 +81,11 @@ sonar {
 		property("sonar.password", "admin123")
 	}
 }
+
+tasks.withType(Tar){
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(Zip){
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
