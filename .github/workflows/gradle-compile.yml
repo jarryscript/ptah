@@ -1,4 +1,4 @@
-name: Maven Build
+name: Gradle Compile
 
 on:
   push:
@@ -20,4 +20,4 @@ jobs:
         distribution: 'adopt'
 
     - name: Build with gradle
-      run: gradle build
+      run: gradle compile
