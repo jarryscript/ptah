@@ -12,4 +12,9 @@ spring:
     jpa:
         hibernate:
             ddl-auto: create
+        show-sql: true
+        logging:
+            level:
+                org.hibernate.SQL=DEBUG
+                org.hibernate.type=TRACE
 

@@ -30,7 +30,7 @@ public class JwtService {
     }
 
     public String generateToken(User user) {
-        String token = JWTUtil.createToken(Map.of("login", user.getLogin(), "id", user.getId()), "".getBytes());
+        String token = JWTUtil.createToken(Map.of("login", user.getLogin(), "id", user.getId()), "PTAH".getBytes());
         redisService.setValue(generateTokenKey(user.getLogin()), token);
         return token;
     }

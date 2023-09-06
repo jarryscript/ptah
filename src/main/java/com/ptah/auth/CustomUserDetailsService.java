@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -23,8 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByLogin(username).map(user->CustomUserDetails.builder()
+        return Optional.ofNullable(userRepository.findByLogin(username)).map(user->CustomUserDetails.builder()
                 .authorities(userService.getAuthorities(user))
+                .password(user.getPassword())
                 .build()).orElseThrow(()->new UsernameNotFoundException(Errors.INVALID_CREDENTIALS.getMessage()));
     }
 
