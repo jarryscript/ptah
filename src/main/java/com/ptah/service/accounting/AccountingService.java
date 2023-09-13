@@ -8,6 +8,7 @@ import com.ptah.repository.accounting.AccountRepository;
 import com.ptah.repository.accounting.TransactionRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -46,8 +47,8 @@ import java.util.Objects;
  * DR;
  */
 //@Service
-@AllArgsConstructor
 @Transactional
+@AllArgsConstructor
 public class AccountingService {
 
     private static final Long SYSTEM_ACCOUNT_ID = 1L;
@@ -60,7 +61,6 @@ public class AccountingService {
         validateAccountForWithdrawal(account, amount);
         updateAccountBalanceForWithdrawal(account, amount);
         createWithdrawalTransactions(account, amount);
-
     }
 
     private void updateAccountBalanceForWithdrawal(Account account, BigDecimal amount) {

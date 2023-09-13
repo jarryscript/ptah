@@ -5,7 +5,7 @@ import com.ptah.dto.userprofiling.LoginRequest;
 import com.ptah.dto.userprofiling.LoginResponse;
 import com.ptah.dto.userprofiling.RegisterRequest;
 import com.ptah.dto.userprofiling.UserDto;
-import com.ptah.service.user.UserService;
+import com.ptah.service.userprofiling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
