@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 
 public class AccountingServiceTest {
 
+    private static final String TEST_ACCOUNT_NAME = "test";
     private AccountingService accountingService;
     private TransactionRepository transactionRepository;
     private AccountRepository accountRepository;
@@ -32,8 +33,8 @@ public class AccountingServiceTest {
 
 
     @Test
-    void withdrawal_ShouldWithdrawalSuccessfully_WhenAmountIsValid() {
-        Account account = new Account(Mockito.anyString(), BigDecimal.TEN, Mockito.mock(Participant.class));
+    void withdrawal_ShouldWithdrawalSuccessfully_WhenWithdrawalAmountIsLessThanBalance() {
+        Account account = new Account(TEST_ACCOUNT_NAME, BigDecimal.TEN, Mockito.mock(Participant.class));
 
         accountingService.withdrawal(account, BigDecimal.ONE);
 
@@ -42,8 +43,17 @@ public class AccountingServiceTest {
 
     @Test
     void withdrawal_ShouldGetInsufficientFundException_WhenWithdrawalAmountIsGreaterThanBalance() {
-        Account account = new Account(Mockito.anyString(), BigDecimal.TEN, Mockito.mock(Participant.class));
+        Account account = new Account(TEST_ACCOUNT_NAME, BigDecimal.TEN, Mockito.mock(Participant.class));
 
         Assertions.assertThrows(ApplicationException.class, () -> accountingService.withdrawal(account, BigDecimal.TEN.multiply(BigDecimal.TEN)), Errors.INSUFFICIENT_FUND.getMessage());
+    }
+
+    @Test
+    void withdrawal_ShouldWithdrawalSuccessfully_WhenWithdrawalAmountEqualsToBalance() {
+        Account account = new Account(TEST_ACCOUNT_NAME, BigDecimal.TEN, Mockito.mock(Participant.class));
+
+        accountingService.withdrawal(account, BigDecimal.TEN);
+
+        Assertions.assertEquals(BigDecimal.ZERO, account.getBalance());
     }
 }
