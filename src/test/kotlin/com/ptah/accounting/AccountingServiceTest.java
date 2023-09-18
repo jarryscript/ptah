@@ -1,0 +1,71 @@
+package com.ptah.accounting;
+
+import com.ptah.common.Errors;
+import com.ptah.common.exceptions.ApplicationException;
+import com.ptah.entity.accounting.Account;
+import com.ptah.entity.accounting.Transaction;
+import com.ptah.entity.contract.Participant;
+import com.ptah.repository.accounting.AccountRepository;
+import com.ptah.repository.accounting.TransactionRepository;
+import com.ptah.service.accounting.AccountingService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.math.BigDecimal;
+
+public class AccountingServiceTest {
+
+    private static final String TEST_ACCOUNT_NAME = "test";
+    private AccountingService accountingService;
+    private TransactionRepository transactionRepository;
+    private AccountRepository accountRepository;
+
+    @BeforeEach
+    void init() {
+        transactionRepository = Mockito.mock(TransactionRepository.class);
+        accountRepository = Mockito.mock(AccountRepository.class);
+        accountingService = new AccountingService(transactionRepository, accountRepository);
+        Mockito.when(accountRepository.save(Mockito.any(Account.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        Mockito.when(transactionRepository.save(Mockito.any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
+    }
+
+
+    @Test
+    void withdrawal_ShouldWithdrawalSuccessfully_WhenWithdrawalAmountIsLessThanBalance() {
+        Account account = new Account(TEST_ACCOUNT_NAME, BigDecimal.TEN, Mockito.mock(Participant.class));
+
+        accountingService.withdrawal(account, BigDecimal.ONE);
+
+        Assertions.assertEquals(BigDecimal.valueOf(9), account.getBalance());
+    }
+
+    @Test
+    void withdrawal_ShouldGetInsufficientFundException_WhenWithdrawalAmountIsGreaterThanBalance() {
+        Account account = new Account(TEST_ACCOUNT_NAME, BigDecimal.TEN, Mockito.mock(Participant.class));
+
+        Assertions.assertThrows(ApplicationException.class, () -> accountingService.withdrawal(account, BigDecimal.TEN.multiply(BigDecimal.TEN)), Errors.INSUFFICIENT_FUND.message);
+    }
+
+    @Test
+    void withdrawal_ShouldWithdrawalSuccessfully_WhenWithdrawalAmountEqualsToBalance() {
+        Account account = new Account(TEST_ACCOUNT_NAME, BigDecimal.TEN, Mockito.mock(Participant.class));
+
+        accountingService.withdrawal(account, BigDecimal.TEN);
+
+        Assertions.assertEquals(BigDecimal.ZERO, account.getBalance());
+    }
+
+    @Test
+    void withdrawal_ShouldRollBackChanges_WhenAnyErrorOccurs() {
+        Account account = new Account(TEST_ACCOUNT_NAME, BigDecimal.TEN, Mockito.mock(Participant.class));
+
+        Mockito.when(transactionRepository.save(Mockito.any(Transaction.class))).thenThrow(RuntimeException.class);
+
+        accountingService.withdrawal(account, BigDecimal.TEN);
+
+        Mockito.verify(accountRepository.save(Mockito.any(Account.class)), Mockito.never());
+        Assertions.assertEquals(BigDecimal.TEN, account.getBalance());
+    }
+}
