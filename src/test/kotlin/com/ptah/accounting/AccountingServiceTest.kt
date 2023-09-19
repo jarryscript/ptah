@@ -13,7 +13,6 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
-import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -39,9 +38,7 @@ class AccountingServiceTest {
             it.invocation.args[0] as Account
         }
         every { accountRepository.findById(any()) } returns Optional.of(mockk<Account>()).map { it }
-//        every { transactionRepository.save(any<Transaction>()) } answers {
-//            it.invocation.args[0] as Transaction
-//        }
+
         every { transactionRepository.saveAll(any<Iterable<Transaction>>()) } answers {
             (it.invocation.args[0] as Iterable<Transaction>).toList()
         }
@@ -78,7 +75,6 @@ class AccountingServiceTest {
         accountingService.withdrawal(account, BigDecimal.TEN)
         assertEquals(BigDecimal.ZERO, account.balance)
     }
-
 
 
     companion object {

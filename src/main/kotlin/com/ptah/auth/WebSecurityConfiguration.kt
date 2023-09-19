@@ -20,10 +20,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 @EnableWebSecurity
 class WebSecurityConfiguration {
     @Autowired
-    private val jwtAuthenticationFilter: JwtAuthenticationFilter? = null
+    lateinit var jwtAuthenticationFilter: JwtAuthenticationFilter
 
     @Autowired
-    private val userDetailsService: CustomUserDetailsService? = null
+    lateinit var userDetailsService: CustomUserDetailsService
 
     @Bean
     @Throws(Exception::class)

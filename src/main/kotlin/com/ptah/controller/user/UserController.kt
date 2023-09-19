@@ -20,11 +20,11 @@ class UserController {
 
     @Autowired
     lateinit var userService: UserService
+
     @PostMapping("/login")
-    fun login(@RequestBody loginRequest: LoginRequest): LoginResponse =authenticationService!!.login(loginRequest.login, loginRequest.password)
+    fun login(@RequestBody loginRequest: LoginRequest): LoginResponse =
+        authenticationService.login(loginRequest.login, loginRequest.password)
 
     @PostMapping("/register")
-    fun register(@RequestBody registerRequest: RegisterRequest): UserDto? {
-        return userService!!.register(registerRequest)
-    }
+    fun register(@RequestBody registerRequest: RegisterRequest): UserDto? = userService.register(registerRequest)
 }
