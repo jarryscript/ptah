@@ -8,6 +8,8 @@ import com.ptah.entity.accounting.Transaction
 import com.ptah.entity.accounting.TransactionDirection
 import com.ptah.repository.accounting.AccountRepository
 import com.ptah.repository.accounting.TransactionRepository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 import java.util.*
@@ -46,11 +48,13 @@ import java.util.*
  * CR,
  * DR;
  */
-//@Service
 @Transactional
+@Service
 class AccountingService {
-    private val transactionRepository: TransactionRepository? = null
-    private val accountRepository: AccountRepository? = null
+    @Autowired
+    lateinit var transactionRepository: TransactionRepository
+    @Autowired
+    lateinit var accountRepository: AccountRepository
     fun withdrawal(account: Account, amount: BigDecimal) {
         validateAccountForWithdrawal(account, amount)
         updateAccountBalanceForWithdrawal(account, amount)
@@ -58,24 +62,26 @@ class AccountingService {
     }
 
     private fun updateAccountBalanceForWithdrawal(account: Account, amount: BigDecimal) {
-        account.balance?.subtract(amount)
-        accountRepository!!.save(account)
+        account.balance =account.balance?.subtract(amount)
+        accountRepository.save(account)
     }
 
     private fun createWithdrawalTransactions(account: Account, amount: BigDecimal) {
         val debit = Transaction(account, TransactionDirection.DEBIT, amount)
-        val credit = Transaction(systemAccount, TransactionDirection.CREDIT, amount)
-        transactionRepository!!.saveAll(Arrays.asList(debit, credit))
+        val credit = Transaction(getSystemAccount(), TransactionDirection.CREDIT, amount)
+        transactionRepository.saveAll(listOf(debit, credit))
     }
 
-    private val systemAccount: Account
-        get() = accountRepository!!.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
+    fun getSystemAccount():Account = accountRepository.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
+
 
     fun createSystemAccount(): Account {
-        val systemAccount = Account()
+        val systemAccount = Account(
+            "System", BigDecimal.TEN, null
+        )
         systemAccount.id = SYSTEM_ACCOUNT_ID
         systemAccount.name = SYSTEM_ACCOUNT_NAME
-        return accountRepository!!.save(systemAccount)
+        return accountRepository.save(systemAccount)
     }
 
     fun validateAccountForWithdrawal(account: Account, amount: BigDecimal) {

@@ -8,10 +8,9 @@ import java.math.BigDecimal
 
 
 @Entity
-class Account : BaseEntity() {
-    var  name: String? = null
-    var  balance: BigDecimal? = null
-
+class Account(
+    var name: String? = null,
+    var balance: BigDecimal? = null,
     @OneToOne
-    var  accountOwner: Participant? = null
-}
+    var accountOwner: Participant? = null
+) : BaseEntity()
