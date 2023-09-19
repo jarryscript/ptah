@@ -29,6 +29,7 @@ dependencies {
 	implementation("cn.hutool:hutool-all:5.8.21")
 	implementation("org.apache.commons:commons-lang3:3.13.0")
 	implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:7.20.0-alpha5")
+	implementation("com.aliyun.oss:aliyun-sdk-oss:3.17.1")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 }

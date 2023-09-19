@@ -16,35 +16,35 @@ import org.springframework.data.domain.Example
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
-import java.util.function.Supplier
-import java.util.stream.Collectors
+import java.util.HashSet
 
 @Service
 class UserService {
     @Autowired
-    private val userRepository: UserRepository? = null
+    lateinit var userRepository: UserRepository
 
     @Autowired
-    private val organizationRepository: OrganizationRepository? = null
+    lateinit var organizationRepository: OrganizationRepository
 
     @Autowired
-    private val authorityMappingRepository: AuthorityMappingRepository? = null
+    lateinit var authorityMappingRepository: AuthorityMappingRepository
 
     @Autowired
-    private val projectNominationRepository: ProjectNominationRepository? = null
+    lateinit var projectNominationRepository: ProjectNominationRepository
 
     @Autowired
-    private val organizationNominationRepository: OrganizationNominationRepository? = null
+    lateinit var organizationNominationRepository: OrganizationNominationRepository
+
     fun register(registerRequest: RegisterRequest): UserDto {
         validateRegisterRequest(registerRequest)
         return createUser(registerRequest)
     }
 
-    private fun createUser(registerRequest: RegisterRequest): UserDto {
-        val savedUser = userRepository!!.save(
-            User.builder().login(registerRequest.login).password(registerRequest.password).build()
-        )
-        return UserDto.builder().login(savedUser.login).build()
+    private fun createUser(registerRequest: RegisterRequest): UserDto = UserDto().apply {
+        login = userRepository.save(User().apply {
+            login = registerRequest.login
+            password = registerRequest.password
+        }).login
     }
 
     private fun validateRegisterRequest(registerRequest: RegisterRequest) {
@@ -53,44 +53,42 @@ class UserService {
     }
 
     fun getAuthorities(user: User): Set<GrantedAuthority> {
-        val roles: MutableSet<*> = HashSet<Any?>()
-        roles.addAll(
-            projectNominationRepository!!.findByUserId(user.id).stream()
-                .map { obj: ProjectNomination? -> obj.getProjectRole() }
-                .map { obj: ProjectRole -> obj.name }.toList()
-        )
-        roles.addAll(
-            organizationNominationRepository!!.findByUserId(user.id).stream()
-                .map { obj: OrganizationNomination? -> obj.getOrganizationRole() }
-                .toList())
-        authorityMappingRepository!!.findByRoles(roles)
-        return convertToGrantedAuthorities(authorityMappingRepository.findByRoles(roles))
+        val roles: MutableSet<String> = with(HashSet<String>()) {
+            addAll(projectNominationRepository.findByUserId(user.id).mapNotNull {
+                it?.projectRole?.name
+            })
+            addAll(organizationNominationRepository.findByUserId(user.id).mapNotNull {
+                it?.organizationRole
+            })
+            this
+        }
+        val authorityMappings = authorityMappingRepository.findByRoles(roles)
+        return convertToGrantedAuthorities(authorityMappings)
     }
 
-    private fun convertToGrantedAuthorities(authorityMappings: Set<AuthorityMapping?>?): Set<GrantedAuthority> {
-        return authorityMappings!!.stream()
-            .map { authorityMapping: AuthorityMapping? -> SimpleGrantedAuthority(authorityMapping.getRole()) }
-            .collect(Collectors.toSet())
+    private fun convertToGrantedAuthorities(authorityMappings: Set<AuthorityMapping?>): Set<GrantedAuthority> {
+        return authorityMappings.mapNotNull { authorityMapping ->
+            authorityMapping?.role?.let { SimpleGrantedAuthority(it) }
+        }.toSet()
     }
 
     fun assignUserToOrganization(userId: Long?, organizationId: Long?) {
-        if (organizationNominationRepository!!.exists<OrganizationNomination>(
-                Example.of<OrganizationNomination>(
-                    OrganizationNomination.builder().build()
+        if (organizationNominationRepository.exists(
+                Example.of(
+                    OrganizationNomination()
                 )
             )
         ) {
-            throw ApplicationException.Companion.of(null)
+            throw ApplicationException.of(null)
         }
-        organizationNominationRepository.save(OrganizationNomination.builder().build())
+        organizationNominationRepository.save(OrganizationNomination())
     }
 
     fun switchToOrganization(userId: Long, organizationId: Long) {
-        val user = userRepository!!.findById(userId).orElseThrow<ApplicationException>(
-            Supplier<ApplicationException> { ApplicationException.Companion.of(Errors.USER_NOT_FOUND) })!!
-        val organization = organizationRepository!!.findById(organizationId).orElseThrow<ApplicationException>(
-            Supplier<ApplicationException> { ApplicationException.Companion.of(Errors.ORGANIZATION_NOT_FOUND) })!!
-        user.currentOrganization = organization
+        val user:User = userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
+        val organization = organizationRepository.findById(organizationId)
+            .orElseThrow { ApplicationException.of(Errors.ORGANIZATION_NOT_FOUND) }
+        user?.currentOrganization = organization
         userRepository.save(user)
     }
 }

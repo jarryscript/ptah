@@ -22,7 +22,7 @@ class CustomUserDetailsService : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails = userRepository.findByLogin(username)?.let { user ->
         return CustomUserDetails().apply {
             authorities = userService.getAuthorities(user)
-            password = user.password
+           internalPassword = user.password
         }
 
     } ?: throw UsernameNotFoundException(Errors.INVALID_CREDENTIALS.message)

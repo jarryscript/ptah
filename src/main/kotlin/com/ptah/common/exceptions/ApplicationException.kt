@@ -2,10 +2,8 @@ package com.ptah.common.exceptions
 
 import com.ptah.common.Errors
 
-class ApplicationException(error: Errors?) : CommonException(error.getMessage()) {
+class ApplicationException(error: Errors?) : CommonException(error?.message) {
     companion object {
-        fun of(error: Errors?): ApplicationException {
-            return ApplicationException(error)
-        }
+        fun of(error: Errors?): ApplicationException = ApplicationException(error)
     }
 }

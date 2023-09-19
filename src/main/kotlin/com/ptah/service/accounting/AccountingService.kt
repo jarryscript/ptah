@@ -8,7 +8,6 @@ import com.ptah.entity.accounting.Transaction
 import com.ptah.entity.accounting.TransactionDirection
 import com.ptah.repository.accounting.AccountRepository
 import com.ptah.repository.accounting.TransactionRepository
-import lombok.AllArgsConstructor
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 import java.util.*
@@ -49,7 +48,6 @@ import java.util.*
  */
 //@Service
 @Transactional
-@AllArgsConstructor
 class AccountingService {
     private val transactionRepository: TransactionRepository? = null
     private val accountRepository: AccountRepository? = null
@@ -60,7 +58,7 @@ class AccountingService {
     }
 
     private fun updateAccountBalanceForWithdrawal(account: Account, amount: BigDecimal) {
-        account. = account.balance.subtract(amount)
+        account.balance?.subtract(amount)
         accountRepository!!.save(account)
     }
 
@@ -71,16 +69,16 @@ class AccountingService {
     }
 
     private val systemAccount: Account
-        private get() = accountRepository!!.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
+        get() = accountRepository!!.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
 
-    private fun createSystemAccount(): Account {
+    fun createSystemAccount(): Account {
         val systemAccount = Account()
         systemAccount.id = SYSTEM_ACCOUNT_ID
         systemAccount.name = SYSTEM_ACCOUNT_NAME
         return accountRepository!!.save(systemAccount)
     }
 
-    private fun validateAccountForWithdrawal(account: Account, amount: BigDecimal) {
+    fun validateAccountForWithdrawal(account: Account, amount: BigDecimal) {
         Objects.requireNonNull(account)
         Objects.requireNonNull(amount)
         if (!NumberUtils.isGreaterThanOrEqualsTo(account.balance, amount)) {
@@ -94,9 +92,9 @@ class AccountingService {
         createDepositTransactions(account, amount)
     }
 
-    private fun createDepositTransactions(account: Account, amount: BigDecimal) {}
-    private fun updateAccountBalanceForDeposit(account: Account, amount: BigDecimal) {}
-    private fun validateAccountForDeposit(account: Account, amount: BigDecimal) {
+    fun createDepositTransactions(account: Account, amount: BigDecimal) {}
+    fun updateAccountBalanceForDeposit(account: Account, amount: BigDecimal) {}
+    fun validateAccountForDeposit(account: Account, amount: BigDecimal) {
         Objects.requireNonNull(account)
         Objects.requireNonNull(amount)
     }
@@ -107,9 +105,9 @@ class AccountingService {
         createTransferTransactions(sourceAccount, targetAccount, amount)
     }
 
-    private fun updateAccountBalanceForTransfer(sourceAccount: Account, targetAccount: Account, amount: BigDecimal) {}
-    private fun createTransferTransactions(sourceAccount: Account, targetAccount: Account, amount: BigDecimal) {}
-    private fun validateAccountsForTransfer(sourceAccount: Account, targetAccount: Account, amount: BigDecimal) {}
+    fun updateAccountBalanceForTransfer(sourceAccount: Account, targetAccount: Account, amount: BigDecimal) {}
+    fun createTransferTransactions(sourceAccount: Account, targetAccount: Account, amount: BigDecimal) {}
+    fun validateAccountsForTransfer(sourceAccount: Account, targetAccount: Account, amount: BigDecimal) {}
 
     companion object {
         private const val SYSTEM_ACCOUNT_ID = 1L

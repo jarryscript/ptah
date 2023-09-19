@@ -9,25 +9,24 @@ import java.util.*
 @Service
 class RedisService : CacheService {
     @Autowired
-    private val redisTemplate: RedisTemplate<Any, Any>? = null
-    override fun getByKey(key: String?): String {
-        return getByKey(key, String::class.java)
-    }
+    lateinit var redisTemplate: RedisTemplate<Any, Any>
+    override fun getByKey(key: String?): String = getByKey(key, String::class.java)
+
 
     override fun <T> getByKey(key: String?, type: Class<T>): T {
-        val value = redisTemplate!!.opsForValue()[key]
+        val value = redisTemplate.opsForValue()[key!!]
         return Optional.ofNullable(value).map { obj: Any? -> type.cast(obj) }.orElseThrow()
     }
 
     override fun setValue(key: String, value: Any) {
-        redisTemplate!!.opsForValue()[key] = value
+        redisTemplate.opsForValue()[key] = value
     }
 
     override fun setValue(key: String, value: Any, timeout: Long) {
-        redisTemplate!!.opsForValue()[key, value] = timeout
+        redisTemplate.opsForValue()[key, value] = timeout
     }
 
     override fun hasKey(key: String): Boolean {
-        return redisTemplate!!.hasKey(key)
+        return redisTemplate.hasKey(key)
     }
 }

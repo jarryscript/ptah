@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/user")
 class UserController {
     @Autowired
-    private val authenticationService: AuthenticationService? = null
+    lateinit var authenticationService: AuthenticationService
 
     @Autowired
-    private val userService: UserService? = null
+    lateinit var userService: UserService
     @PostMapping("/login")
-    fun login(@RequestBody loginRequest: LoginRequest): LoginResponse {
-        return authenticationService!!.login(loginRequest.login, loginRequest.password)
-    }
+    fun login(@RequestBody loginRequest: LoginRequest): LoginResponse =authenticationService!!.login(loginRequest.login, loginRequest.password)
 
     @PostMapping("/register")
     fun register(@RequestBody registerRequest: RegisterRequest): UserDto? {

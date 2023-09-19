@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.Query
 
 interface AuthorityMappingRepository : JpaRepository<AuthorityMapping?, Long?> {
     @Query("SELECT u FROM AuthorityMapping u WHERE u.role IN :roles")
-    fun findByRoles(roles: Set<String?>?): Set<AuthorityMapping?>?
+    fun findByRoles(roles: Set<String?>?): Set<AuthorityMapping?>
 }

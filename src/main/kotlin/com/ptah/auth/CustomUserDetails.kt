@@ -5,10 +5,11 @@ import org.springframework.security.core.userdetails.UserDetails
 
 class CustomUserDetails : UserDetails {
     var authorities: Set<GrantedAuthority>? = null
-    var password: String? = null
+    var internalPassword: String? = null
 
     override fun getAuthorities(): Collection<GrantedAuthority> = authorities!!
-    override fun getPassword(): String = password!!
+    override fun getPassword(): String = internalPassword!!
+
     override fun getUsername(): String = ""
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
