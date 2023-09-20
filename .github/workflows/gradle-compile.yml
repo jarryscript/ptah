@@ -20,4 +20,4 @@ jobs:
         distribution: 'adopt'
 
     - name: Build with gradle
-      run: gradle build
+      run: gradle clean build
