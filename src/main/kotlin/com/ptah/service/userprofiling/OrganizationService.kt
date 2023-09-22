@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service
 class OrganizationService {
     private val organizationRepository: OrganizationRepository? = null
     fun createOrganization(createOrganizationRequest: CreateOrganizationRequest) {
-        validateCreateOrganizationRequest(createOrganizationRequest)
-        val organization: Organization = buildNewOrganization(createOrganizationRequest)!!
+        validateCreateOrganizationRequest()
+        val organization: Organization = buildNewOrganization(createOrganizationRequest)
         organizationRepository!!.save(organization)
     }
 
-    private fun validateCreateOrganizationRequest(createOrganizationRequest: CreateOrganizationRequest) {}
+    private fun validateCreateOrganizationRequest() {}
 
     fun buildNewOrganization(createOrganizationRequest: CreateOrganizationRequest): Organization {
         return createOrganizationRequest.toEntity(Organization::class)

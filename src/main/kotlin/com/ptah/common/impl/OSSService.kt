@@ -35,7 +35,7 @@ class OSSService : ObjectStorageService {
     }
 
     private val ossClient: OSS
-        private get() = OSSClientBuilder().build(ossEndpoint, accessKeyId, accessKeySecret)
+        get() = OSSClientBuilder().build(ossEndpoint, accessKeyId, accessKeySecret)
 
     override fun setValue(key: String?, value: Any?) {}
     override fun setValue(key: String?, value: Any?, timeout: Long) {}
