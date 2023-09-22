@@ -1,0 +1,5 @@
+camunda.bpm:
+  deployment:
+    scan-for-process-definitions:true
+    process-definition-xml-name-pattern:process-*.bpmn
+    directory:bpmn
