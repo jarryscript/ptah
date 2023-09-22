@@ -1,5 +1,5 @@
 # Ptah
-![img.png](doc/assets/logo.png) | Ptah is an Egyptian creator god who conceived the world and brought it into being through the creative power of speech.<br/> This project is a Kotlin Spring Boot application that blablabla
+![img.png](backend/doc/assets/logo.png) | Ptah is an Egyptian creator god who conceived the world and brought it into being through the creative power of speech.<br/> This project is a Kotlin Spring Boot application that blablabla
 :-------------------------:|:-------------------------:
 
 
