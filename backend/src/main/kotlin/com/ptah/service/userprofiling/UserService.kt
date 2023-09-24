@@ -5,6 +5,7 @@ import com.ptah.common.*
 import com.ptah.common.exceptions.ApplicationException
 import com.ptah.dto.userprofiling.RegisterRequest
 import com.ptah.dto.userprofiling.UserDto
+import com.ptah.dto.userprofiling.UserInfo
 import com.ptah.entity.userprofiling.*
 import com.ptah.repository.project.ProjectNominationRepository
 import com.ptah.repository.userprofiling.AuthorityMappingRepository
@@ -85,10 +86,17 @@ class UserService {
     }
 
     fun switchToOrganization(userId: Long, organizationId: Long) {
-        val user:User = userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
+        val user: User =
+            userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
         val organization = organizationRepository.findById(organizationId)
             .orElseThrow { ApplicationException.of(Errors.ORGANIZATION_NOT_FOUND) }
-        user?.currentOrganization = organization
+        user.currentOrganization = organization
         userRepository.save(user)
     }
+
+    fun getUserInfo(userId: Long): UserInfo = userRepository.findById(userId).map {
+        UserInfo().apply {
+
+        }
+    }.orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }
 }
