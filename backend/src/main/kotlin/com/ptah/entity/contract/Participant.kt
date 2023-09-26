@@ -8,5 +8,5 @@ import jakarta.persistence.InheritanceType
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 open class Participant : BaseEntity() {
-    val name: String? = null
+    open var name: String? = null
 }

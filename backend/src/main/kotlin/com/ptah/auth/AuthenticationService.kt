@@ -7,11 +7,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service
 
 @Service
-class AuthenticationService {
-
-    lateinit var userRepository: UserRepository
-    lateinit var jwtService: JwtService
-    lateinit var authenticationManager: AuthenticationManager
+class AuthenticationService(
+    var userRepository: UserRepository, var jwtService: JwtService, var authenticationManager: AuthenticationManager
+) {
     fun login(login: String?, password: String?): LoginResponse {
         authenticationManager.authenticate(UsernamePasswordAuthenticationToken(login, password))
         val user = userRepository.findByLogin(login) ?: throw IllegalArgumentException("Invalid email or password.")

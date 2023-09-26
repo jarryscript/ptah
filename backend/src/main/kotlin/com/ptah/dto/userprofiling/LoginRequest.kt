@@ -1,7 +1,8 @@
 package com.ptah.dto.userprofiling
 
 
-class LoginRequest {
-    lateinit var login: String
-    lateinit var password: String
-}
+class LoginRequest(
+    var login: String? = null, var password: String? = null
+)
+
+

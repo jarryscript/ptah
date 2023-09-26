@@ -20,22 +20,18 @@ import org.springframework.stereotype.Service
 import java.util.HashSet
 
 @Service
-class UserService {
-    @Autowired
-    lateinit var userRepository: UserRepository
+class UserService(
+    var userRepository: UserRepository,
 
-    @Autowired
-    lateinit var organizationRepository: OrganizationRepository
+    var organizationRepository: OrganizationRepository,
 
-    @Autowired
-    lateinit var authorityMappingRepository: AuthorityMappingRepository
+    var authorityMappingRepository: AuthorityMappingRepository,
 
-    @Autowired
-    lateinit var projectNominationRepository: ProjectNominationRepository
+    var projectNominationRepository: ProjectNominationRepository,
 
-    @Autowired
-    lateinit var organizationNominationRepository: OrganizationNominationRepository
+    var organizationNominationRepository: OrganizationNominationRepository
 
+) {
     fun register(registerRequest: RegisterRequest): UserDto {
         validateRegisterRequest(registerRequest)
         return createUser(registerRequest)
@@ -54,6 +50,11 @@ class UserService {
     }
 
     fun getAuthorities(user: User): Set<GrantedAuthority> {
+        val authorityMappings = getUserAuthorityMappings(user)
+        return convertToGrantedAuthorities(authorityMappings)
+    }
+
+    private fun getUserAuthorityMappings(user: User): Set<AuthorityMapping?> {
         val roles: MutableSet<String> = with(HashSet<String>()) {
             addAll(projectNominationRepository.findByUserId(user.id).mapNotNull {
                 it?.projectRole?.name
@@ -63,8 +64,7 @@ class UserService {
             })
             this
         }
-        val authorityMappings = authorityMappingRepository.findByRoles(roles)
-        return convertToGrantedAuthorities(authorityMappings)
+        return authorityMappingRepository.findByRoles(roles)
     }
 
     private fun convertToGrantedAuthorities(authorityMappings: Set<AuthorityMapping?>): Set<GrantedAuthority> {
@@ -94,9 +94,19 @@ class UserService {
         userRepository.save(user)
     }
 
-    fun getUserInfo(userId: Long): UserInfo = userRepository.findById(userId).map {
-        UserInfo().apply {
-
+    fun getUserInfo(userId: Long): UserInfo {
+        val user: User =
+            userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
+        val authorities = getUserAuthorityMappings(user).flatMap { it?.authorities!! }
+        return UserInfo().apply {
+            this.user = UserDto().apply {
+                this.authorities = authorities
+                login = user.login
+                nickname = user.name
+            }
+            logs = emptyList()
         }
-    }.orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }
+    }
+
+
 }

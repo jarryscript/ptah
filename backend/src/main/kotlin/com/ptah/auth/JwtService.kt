@@ -15,7 +15,7 @@ class JwtService {
     fun extractUserName(jwt: String?): String? = JWTUtil.parseToken(jwt).getPayload("login").toString()
 
     fun isTokenValid(jwt: String?, userDetails: UserDetails): Boolean {
-        val isValid = JWTUtil.verify(jwt, "".toByteArray())
+        val isValid = JWTUtil.verify(jwt, "PTAH".toByteArray())
         val isExpired = redisService.hasKey(generateTokenKey(userDetails.username))
         return isValid && !isExpired
     }

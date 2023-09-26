@@ -1,8 +1,10 @@
 package com.ptah.auth
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
@@ -15,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.security.web.util.matcher.OrRequestMatcher
+import org.springframework.web.cors.CorsUtils
 
 @Configuration
 @EnableWebSecurity
@@ -25,15 +29,17 @@ class WebSecurityConfiguration {
     @Autowired
     lateinit var userDetailsService: CustomUserDetailsService
 
+    @Value("\${security.non-secure-paths:''}")
+    lateinit var nonSecurePaths: List<String>
+
+
+
     @Bean
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        return http.csrf { it.disable() }.authorizeHttpRequests { // modify the request authorization
-            it.requestMatchers(
-                AntPathRequestMatcher("/auth/**"),
-                AntPathRequestMatcher("/user/register"),
-                AntPathRequestMatcher("/user/login")
-            ).permitAll()
+        return http.csrf { it.disable() }.authorizeHttpRequests {
+            it.requestMatchers(*nonSecurePaths.toTypedArray()).permitAll().requestMatchers(CorsUtils::isPreFlightRequest)
+                .permitAll()
             it.anyRequest().authenticated()
         }.sessionManagement {
             it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -41,6 +47,8 @@ class WebSecurityConfiguration {
             jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java
         ).build()
     }
+
+
 
     @Bean
     fun authenticationProvider(): AuthenticationProvider {

@@ -13,11 +13,11 @@ import java.time.Instant
 abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    open var id: Long? = null
 
     @UpdateTimestamp
-    var lastUpdatedOn: Instant? = null
+    open lateinit var lastUpdatedOn: Instant
 
     @CreationTimestamp
-    var createdOn: Instant? = null
+    open lateinit var createdOn: Instant
 }

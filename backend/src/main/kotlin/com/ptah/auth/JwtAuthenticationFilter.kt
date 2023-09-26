@@ -14,10 +14,9 @@ import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 
 @Component
-class JwtAuthenticationFilter : OncePerRequestFilter() {
-    lateinit var jwtService: JwtService
-    lateinit var userDetailsService: UserDetailsService
-
+class JwtAuthenticationFilter(
+    private val jwtService: JwtService, private val userDetailsService: UserDetailsService
+) : OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
         request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain
@@ -44,7 +43,7 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
 
     private fun getJwt(authHeader: String): String = authHeader.substring(JWT_BEGIN_INDEX)
 
-    private fun containsAuthorizationHeader(authHeader: String): Boolean =
+    private fun containsAuthorizationHeader(authHeader: String?): Boolean =
         org.apache.commons.lang3.StringUtils.startsWith(authHeader, AUTHENTICATION_HEADER_PREFIX)
 
     private fun setSecurityContext(request: HttpServletRequest, userDetails: UserDetails) {

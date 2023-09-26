@@ -1,7 +1,4 @@
 spring:
-    profiles:
-      active:
-        - local
     datasource:
         url: jdbc:postgresql://ep-lucky-queen-69256101.ap-southeast-1.aws.neon.tech/neondb?user=jarryscript&password=Q0l7YVmgzjaF
         driver-class-name: org.postgresql.Driver
@@ -20,6 +17,17 @@ spring:
             level:
                 org.hibernate.SQL=DEBUG
                 org.hibernate.type=TRACE
+    data:
+        redis:
+            host: apn1-solid-hen-34573.upstash.io
+            port: 34573
+            password: b16cd1da3d47428e95444567f9faf06c
+            timeout: 2000
+
+logging:
+    level:
+        org.springframework.security: TRACE
 
 security:
     non-secure-paths: /user/login, /user/register, /user/logout, /error
+
