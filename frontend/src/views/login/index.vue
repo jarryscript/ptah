@@ -6,15 +6,15 @@
         <h3 class="title">Login Form</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="login">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
+          ref="login"
+          v-model="loginForm.login"
           placeholder="Username"
-          name="username"
+          name="login"
           type="text"
           tabindex="1"
           autocomplete="on"
@@ -47,20 +47,7 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
-      <div style="position:relative">
-        <div class="tips">
-          <span>Username : admin</span>
-          <span>Password : any</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">Username : editor</span>
-          <span>Password : any</span>
-        </div>
 
-        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-          Or connect with
-        </el-button>
-      </div>
     </el-form>
 
     <el-dialog title="Or connect with" :visible.sync="showDialog">
@@ -97,11 +84,11 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        login: 'admin',
         password: '111111'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        login: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       passwordType: 'password',
@@ -128,8 +115,8 @@ export default {
     // window.addEventListener('storage', this.afterQRScan)
   },
   mounted() {
-    if (this.loginForm.username === '') {
-      this.$refs.username.focus()
+    if (this.loginForm.login === '') {
+      this.$refs.login.focus()
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
@@ -153,6 +140,7 @@ export default {
       })
     },
     handleLogin() {
+      debugger
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -161,7 +149,7 @@ export default {
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
             })
-            .catch(() => {
+            .catch((e) => {
               this.loading = false
             })
         } else {
@@ -201,8 +189,6 @@ export default {
 </script>
 
 <style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg:#283443;
 $light_gray:#fff;
@@ -265,6 +251,7 @@ $light_gray:#eee;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
+    margin-right: 10%;
   }
 
   .tips {

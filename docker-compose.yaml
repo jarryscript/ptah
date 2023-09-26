@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  frontend:
+    build:
+      context: ./frontend # Path to the front end application code
+      dockerfile: Dockerfile # Path to the front end Dockerfile
+    ports:
+      - "8080:8080" # Map container's port 8080 to host's port 8080
+    environment:
+      VUE_APP_API_URL: http://backend:8081 # Use backend hostname to connect frontend to backend
+    depends_on:
+      - backend # Wait for backend to start before starting frontend
+  backend:
+    build:
+      context: ./backend # Path to the backend application code
+      dockerfile: Dockerfile # Path to the backend Dockerfile
+    environment:
+    ports:
+      - "8081:8081" # Map container's port 8081 to host's port 8081

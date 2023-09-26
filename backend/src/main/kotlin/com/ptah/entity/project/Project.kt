@@ -8,12 +8,12 @@ import jakarta.persistence.OneToOne
 
 @Entity
 class Project : BaseEntity() {
-    private val name: String? = null
+    var name: String? = null
 
     @OneToOne
-    private val owner: Participant? = null
-    private val status: ProjectStatus? = null
+    var owner: Participant? = null
+    var status: ProjectStatus? = null
 
     @OneToOne
-    private val contactInfo: ContactInfo? = null
+    var contactInfo: ContactInfo? = null
 }
