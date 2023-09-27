@@ -1,4 +1,4 @@
-package com.ptah.controller.user
+package com.ptah.controller.userprofiling
 
 import com.ptah.auth.AuthenticationService
 import com.ptah.dto.userprofiling.*
@@ -29,4 +29,6 @@ class UserController {
 
     @GetMapping("/info")
     fun info() : UserInfo = userService.getUserInfo(SecurityUtil.currentUserId());
+
+
 }

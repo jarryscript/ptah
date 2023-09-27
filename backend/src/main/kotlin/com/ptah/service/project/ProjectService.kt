@@ -9,11 +9,11 @@ import com.ptah.repository.project.ProjectRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ProjectService(var projectNominationRepository: ProjectNominationRepository,
-    var projectRepository: ProjectRepository
-    ) {
+class ProjectService(
+    var projectNominationRepository: ProjectNominationRepository, var projectRepository: ProjectRepository
+) {
     fun getProjectsOfUser(userId: Long?): List<ProjectDto?> = projectNominationRepository.findByUserId(userId).map {
-        ProjectDto("").fromEntity(it?.project)
+        ProjectDto(name = "").fromEntity(it?.project)
     }
 
     fun create(projectDto: ProjectDto) = projectRepository.save(projectDto.toEntity(Project::class))

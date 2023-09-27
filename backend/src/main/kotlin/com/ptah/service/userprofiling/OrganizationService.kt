@@ -1,6 +1,7 @@
 package com.ptah.service.userprofiling
 
 import com.ptah.dto.userprofiling.CreateOrganizationRequest
+import com.ptah.dto.userprofiling.CreateOrganizationResponse
 import com.ptah.entity.userprofiling.Organization
 import com.ptah.repository.userprofiling.OrganizationRepository
 import org.springframework.stereotype.Service
@@ -8,10 +9,15 @@ import org.springframework.stereotype.Service
 @Service
 class OrganizationService {
     private val organizationRepository: OrganizationRepository? = null
-    fun createOrganization(createOrganizationRequest: CreateOrganizationRequest) {
+    fun createOrganization(createOrganizationRequest: CreateOrganizationRequest): CreateOrganizationResponse {
         validateCreateOrganizationRequest()
-        val organization: Organization = buildNewOrganization(createOrganizationRequest)
-        organizationRepository!!.save(organization)
+        return CreateOrganizationResponse().fromEntity(
+            organizationRepository!!.save(
+                buildNewOrganization(
+                    createOrganizationRequest
+                )
+            )
+        )
     }
 
     private fun validateCreateOrganizationRequest() {}

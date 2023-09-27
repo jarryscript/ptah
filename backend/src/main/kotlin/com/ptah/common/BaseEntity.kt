@@ -15,9 +15,9 @@ abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     open var id: Long? = null
 
-    @UpdateTimestamp
-    open lateinit var lastUpdatedOn: Instant
+    @field:UpdateTimestamp
+    open var lastUpdatedOn: Instant? = null
 
-    @CreationTimestamp
-    open lateinit var createdOn: Instant
+    @field:CreationTimestamp
+    open var createdOn: Instant? = null
 }

@@ -12,7 +12,6 @@ import com.ptah.repository.userprofiling.AuthorityMappingRepository
 import com.ptah.repository.userprofiling.OrganizationNominationRepository
 import com.ptah.repository.userprofiling.OrganizationRepository
 import com.ptah.repository.userprofiling.UserRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Example
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -50,27 +49,34 @@ class UserService(
     }
 
     fun getAuthorities(user: User): Set<GrantedAuthority> {
-        val authorityMappings = getUserAuthorityMappings(user)
-        return convertToGrantedAuthorities(authorityMappings)
+        val roles = getRolesOfUser(user)
+        val authorityMappings = getUserAuthorityMappings(roles)
+        val authorities = convertToGrantedAuthorities(authorityMappings)
+        authorities.addAll(roles.map { SimpleGrantedAuthority(it) })
+        return authorities
     }
 
-    private fun getUserAuthorityMappings(user: User): Set<AuthorityMapping?> {
+    private fun getUserAuthorityMappings(roles: Set<String>): Set<AuthorityMapping?> {
+        return authorityMappingRepository.findByRoles(roles)
+    }
+
+    private fun getRolesOfUser(user: User): MutableSet<String> {
         val roles: MutableSet<String> = with(HashSet<String>()) {
             addAll(projectNominationRepository.findByUserId(user.id).mapNotNull {
                 it?.projectRole?.name
             })
             addAll(organizationNominationRepository.findByUserId(user.id).mapNotNull {
-                it?.organizationRole
+                it?.organizationRole?.name
             })
             this
         }
-        return authorityMappingRepository.findByRoles(roles)
+        return roles
     }
 
-    private fun convertToGrantedAuthorities(authorityMappings: Set<AuthorityMapping?>): Set<GrantedAuthority> {
+    private fun convertToGrantedAuthorities(authorityMappings: Set<AuthorityMapping?>): MutableSet<GrantedAuthority> {
         return authorityMappings.mapNotNull { authorityMapping ->
             authorityMapping?.role?.let { SimpleGrantedAuthority(it) }
-        }.toSet()
+        }.toMutableSet()
     }
 
     fun assignUserToOrganization(userId: Long?, organizationId: Long?) {
@@ -97,7 +103,7 @@ class UserService(
     fun getUserInfo(userId: Long): UserInfo {
         val user: User =
             userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
-        val authorities = getUserAuthorityMappings(user).flatMap { it?.authorities!! }
+        val authorities = getAuthorities(user).map { it.authority }
         return UserInfo().apply {
             this.user = UserDto().apply {
                 this.authorities = authorities
@@ -106,6 +112,11 @@ class UserService(
             }
             logs = emptyList()
         }
+    }
+
+    fun updateUser(userDto: UserDto): UserDto {
+        userRepository.save(userDto.toEntity(User::class))
+        return userDto
     }
 
 

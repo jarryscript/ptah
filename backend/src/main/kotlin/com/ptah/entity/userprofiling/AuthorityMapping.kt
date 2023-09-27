@@ -6,10 +6,8 @@ import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 
 @Entity
-class AuthorityMapping : BaseEntity() {
-    var description: String? = null
-
-    @Convert(converter = StringListConverter::class)
-    var authorities: Set<String>? = null
+class AuthorityMapping(
+    var description: String? = null,
+    @Convert(converter = StringListConverter::class) var authorities: MutableSet<String>? = mutableSetOf(),
     var role: String? = null
-}
+) : BaseEntity()
