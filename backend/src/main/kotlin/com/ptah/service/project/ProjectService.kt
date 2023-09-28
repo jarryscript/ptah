@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ProjectService(
-    var projectNominationRepository: ProjectNominationRepository, var projectRepository: ProjectRepository
+    private var projectNominationRepository: ProjectNominationRepository, private var projectRepository: ProjectRepository
 ) {
     fun getProjectsOfUser(userId: Long?): List<ProjectDto?> = projectNominationRepository.findByUserId(userId).map {
         ProjectDto(name = "").fromEntity(it?.project)

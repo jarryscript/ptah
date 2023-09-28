@@ -12,17 +12,13 @@ class OrganizationService(private var organizationRepository: OrganizationReposi
     fun createOrganization(createOrganizationRequest: CreateOrganizationRequest): CreateOrganizationResponse {
         validateCreateOrganizationRequest()
         return CreateOrganizationResponse().fromEntity(
-            organizationRepository!!.save(
-                buildNewOrganization(
-                    createOrganizationRequest
-                )
+            organizationRepository.save(
+                createOrganizationRequest.toEntity(Organization::class)
             )
         )
     }
 
     private fun validateCreateOrganizationRequest() {}
 
-    fun buildNewOrganization(createOrganizationRequest: CreateOrganizationRequest): Organization {
-        return createOrganizationRequest.toEntity(Organization::class)
-    }
+
 }

@@ -10,16 +10,10 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "users")
-class User : Participant() {
-     var login: String? = null
-     var avatar: String? = null
-
-    @Convert(converter = PasswordEncryptor::class)
-     var password: String? = null
-
-    @OneToOne
-     var  contactInfo: ContactInfo? = null
-
-    @OneToOne
-     var  currentOrganization: Organization? = null
-}
+class User(
+    var login: String? = null,
+    var avatar: String? = null,
+    @Convert(converter = PasswordEncryptor::class) var password: String? = null,
+    @OneToOne var contactInfo: ContactInfo? = null,
+    @OneToOne var currentOrganization: Organization? = null
+) : Participant()

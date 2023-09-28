@@ -7,7 +7,6 @@ import com.ptah.entity.userprofiling.AuthorityMapping
 import com.ptah.entity.userprofiling.OrganizationRole
 import com.ptah.entity.userprofiling.ProjectRole
 import com.ptah.repository.userprofiling.AuthorityMappingRepository
-import org.springframework.data.domain.Example
 import org.springframework.stereotype.Service
 
 
@@ -30,8 +29,8 @@ class AuthorityService(var authorizationMappingRepository: AuthorityMappingRepos
         authorizationMappingRepository.save(authorityMapping)
     }
 
-    private fun getAuthorityMappingByRole(role: String): AuthorityMapping =
-        authorizationMappingRepository.findByRole(role) ?: AuthorityMapping(role=role)
+    private fun getAuthorityMappingByRole(role: String) =
+        authorizationMappingRepository.findByRole(role) ?: AuthorityMapping(role = role)
 
     private fun validateAuthority(authority: String) {
         require(isValidAuthority(authority)) { throw ApplicationException.of(Errors.INVALID_AUTHORITY) }

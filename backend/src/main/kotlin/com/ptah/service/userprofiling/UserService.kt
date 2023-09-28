@@ -8,11 +8,7 @@ import com.ptah.dto.userprofiling.UserDto
 import com.ptah.dto.userprofiling.UserInfo
 import com.ptah.entity.userprofiling.*
 import com.ptah.repository.project.ProjectNominationRepository
-import com.ptah.repository.userprofiling.AuthorityMappingRepository
-import com.ptah.repository.userprofiling.OrganizationNominationRepository
-import com.ptah.repository.userprofiling.OrganizationRepository
-import com.ptah.repository.userprofiling.UserRepository
-import org.springframework.data.domain.Example
+import com.ptah.repository.userprofiling.*
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
@@ -21,6 +17,7 @@ import java.util.HashSet
 @Service
 class UserService(
     private var userRepository: UserRepository,
+    private var userJournalRepository: UserJournalRepository,
     private var organizationRepository: OrganizationRepository,
     private var authorityMappingRepository: AuthorityMappingRepository,
     private var projectNominationRepository: ProjectNominationRepository,
@@ -34,12 +31,13 @@ class UserService(
         return createUser(registerRequest)
     }
 
-    private fun createUser(registerRequest: RegisterRequest): UserDto = UserDto().apply {
-        login = userRepository.save(User().apply {
-            login = registerRequest.login
-            password = registerRequest.password
-        }).login
-    }
+    private fun createUser(registerRequest: RegisterRequest) = UserDto(
+        login = userRepository.save(
+            User(
+                password = registerRequest.password, login = registerRequest.login
+            )
+        ).login
+    )
 
     private fun validateRegisterRequest(registerRequest: RegisterRequest) {
         Validator.validateNotEmpty(registerRequest.login, "")
@@ -80,35 +78,35 @@ class UserService(
     fun assignUserToOrganization(userId: Long, organizationId: Long, organizationRole: OrganizationRole) {
         val organizationNomination = organizationNominationService.getOrganizationNomination(userId, organizationId)
         organizationNominationService.updateOrganizationNomination(
-            organizationNomination,
-            userId,
-            organizationId,
-            organizationRole
+            organizationNomination, userId, organizationId, organizationRole
         )
         organizationNominationRepository.save(organizationNomination)
     }
 
 
     fun switchToOrganization(userId: Long, organizationId: Long) {
-        val user: User =
-            userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
+        val user: User = getUser(userId)
         user.currentOrganization = organizationRepository.findById(organizationId)
             .orElseThrow { ApplicationException.of(Errors.ORGANIZATION_NOT_FOUND) }
         userRepository.save(user)
     }
 
     fun getUserInfo(userId: Long): UserInfo {
-        val user: User =
-            userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
+        val user: User = getUser(userId)
         val authorities = getAuthorities(user).map { it.authority }
+        val userJournals = userJournalRepository.findByUserId(userId)
         return UserInfo().apply {
             this.user = UserDto().apply {
                 this.authorities = authorities
                 login = user.login
                 nickname = user.name
             }
-            logs = emptyList()
+            logs = userJournals
         }
+    }
+
+    private fun getUser(userId: Long): User {
+        return userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
     }
 
     fun updateUser(userDto: UserDto): UserDto {

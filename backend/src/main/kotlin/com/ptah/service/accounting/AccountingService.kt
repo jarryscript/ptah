@@ -50,11 +50,10 @@ import java.util.*
  */
 @Transactional
 @Service
-class AccountingService {
-    @Autowired
-    lateinit var transactionRepository: TransactionRepository
-    @Autowired
-    lateinit var accountRepository: AccountRepository
+class AccountingService(
+    private var transactionRepository: TransactionRepository, private var accountRepository: AccountRepository
+) {
+
     fun withdrawal(account: Account, amount: BigDecimal) {
         validateAccountForWithdrawal(account, amount)
         updateAccountBalanceForWithdrawal(account, amount)
@@ -62,7 +61,7 @@ class AccountingService {
     }
 
     private fun updateAccountBalanceForWithdrawal(account: Account, amount: BigDecimal) {
-        account.balance =account.balance?.subtract(amount)
+        account.balance = account.balance?.subtract(amount)
         accountRepository.save(account)
     }
 
@@ -72,7 +71,7 @@ class AccountingService {
         transactionRepository.saveAll(listOf(debit, credit))
     }
 
-    fun getSystemAccount():Account = accountRepository.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
+    fun getSystemAccount() = accountRepository.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
 
 
     fun createSystemAccount(): Account {

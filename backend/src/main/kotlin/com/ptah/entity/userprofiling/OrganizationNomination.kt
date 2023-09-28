@@ -7,12 +7,8 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.ManyToOne
 
 @Entity
-class OrganizationNomination : BaseEntity() {
-    @ManyToOne
-    var user: User? = null
-
-    @ManyToOne
-    var organization: Organization? = null
-    @Enumerated(EnumType.STRING)
-    var organizationRole: OrganizationRole? = null
-}
+class OrganizationNomination(
+    @ManyToOne var user: User? = null,
+    @ManyToOne var organization: Organization? = null,
+    @Enumerated(EnumType.STRING) var organizationRole: OrganizationRole? = null
+) : BaseEntity()

@@ -15,19 +15,17 @@ class OrganizationNominationService(private var organizationNominationRepository
         userId: Long,
         organizationId: Long,
         organizationRole: OrganizationRole
-    ) {
-        organizationNomination.apply {
-            user = User().apply { id = userId }
-            organization = Organization().apply {
-                id = organizationId
-
-            }
-            this.organizationRole = organizationRole
+    ) = organizationNomination.apply {
+        user = User().apply { id = userId }
+        organization = Organization().apply {
+            id = organizationId
         }
+        this.organizationRole = organizationRole
     }
+
 
     fun getOrganizationNomination(
         userId: Long, organizationId: Long
-    ): OrganizationNomination = (organizationNominationRepository.findByUserIdAndOrganizationId(userId, organizationId)
+    ) = (organizationNominationRepository.findByUserIdAndOrganizationId(userId, organizationId)
         ?: OrganizationNomination())
 }
