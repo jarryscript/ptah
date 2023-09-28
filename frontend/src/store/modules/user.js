@@ -64,9 +64,9 @@ const actions = {
         }
 
         commit('SET_ROLES', authorities)
-        // commit('SET_NAME', name)
-        // commit('SET_AVATAR', avatar)
-        // commit('SET_INTRODUCTION', introduction)
+        commit('SET_NAME', "")
+        commit('SET_AVATAR', "")
+        commit('SET_INTRODUCTION', "")
         resolve(data)
       }).catch(error => {
         reject(error)

@@ -2,6 +2,7 @@ package com.ptah.controller.userprofiling
 
 import com.ptah.auth.AuthenticationService
 import com.ptah.dto.userprofiling.*
+import com.ptah.entity.userprofiling.OrganizationRole
 import com.ptah.service.userprofiling.UserService
 import com.ptah.util.SecurityUtil
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,5 +31,8 @@ class UserController {
     @GetMapping("/info")
     fun info() : UserInfo = userService.getUserInfo(SecurityUtil.currentUserId());
 
-
+    @PostMapping("/organizationNomination")
+    fun assignUserToOrganization(@RequestBody organizationNominationDTO: OrganizationNominationDTO){
+        userService.assignUserToOrganization(organizationNominationDTO.userId,organizationNominationDTO.organizationId,OrganizationRole.valueOf(organizationNominationDTO.organizationRole.uppercase()))
+    }
 }

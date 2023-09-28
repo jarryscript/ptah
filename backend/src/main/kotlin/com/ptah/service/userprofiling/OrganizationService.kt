@@ -7,8 +7,8 @@ import com.ptah.repository.userprofiling.OrganizationRepository
 import org.springframework.stereotype.Service
 
 @Service
-class OrganizationService {
-    private val organizationRepository: OrganizationRepository? = null
+class OrganizationService(private var organizationRepository: OrganizationRepository) {
+
     fun createOrganization(createOrganizationRequest: CreateOrganizationRequest): CreateOrganizationResponse {
         validateCreateOrganizationRequest()
         return CreateOrganizationResponse().fromEntity(

@@ -26,10 +26,9 @@ class CamundaService {
         if (processInstance != null) {
             val activityInstance = runtimeService.getActivityInstance(processInstanceId)
             val activities = activityInstance.childActivityInstances.map {
-                Activity().apply {
-                    name = it.activityName
-                    type = it.activityType
-                }
+                Activity(
+                    name = it.activityName, type = it.activityType
+                )
             }
             return Process().apply {
                 activeActivities = activities

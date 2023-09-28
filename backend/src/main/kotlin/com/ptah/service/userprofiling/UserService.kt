@@ -20,15 +20,13 @@ import java.util.HashSet
 
 @Service
 class UserService(
-    var userRepository: UserRepository,
+    private var userRepository: UserRepository,
+    private var organizationRepository: OrganizationRepository,
+    private var authorityMappingRepository: AuthorityMappingRepository,
+    private var projectNominationRepository: ProjectNominationRepository,
+    private var organizationNominationService: OrganizationNominationService,
+    private var organizationNominationRepository: OrganizationNominationRepository
 
-    var organizationRepository: OrganizationRepository,
-
-    var authorityMappingRepository: AuthorityMappingRepository,
-
-    var projectNominationRepository: ProjectNominationRepository,
-
-    var organizationNominationRepository: OrganizationNominationRepository
 
 ) {
     fun register(registerRequest: RegisterRequest): UserDto {
@@ -79,24 +77,23 @@ class UserService(
         }.toMutableSet()
     }
 
-    fun assignUserToOrganization(userId: Long?, organizationId: Long?) {
-        if (organizationNominationRepository.exists(
-                Example.of(
-                    OrganizationNomination()
-                )
-            )
-        ) {
-            throw ApplicationException.of(null)
-        }
-        organizationNominationRepository.save(OrganizationNomination())
+    fun assignUserToOrganization(userId: Long, organizationId: Long, organizationRole: OrganizationRole) {
+        val organizationNomination = organizationNominationService.getOrganizationNomination(userId, organizationId)
+        organizationNominationService.updateOrganizationNomination(
+            organizationNomination,
+            userId,
+            organizationId,
+            organizationRole
+        )
+        organizationNominationRepository.save(organizationNomination)
     }
+
 
     fun switchToOrganization(userId: Long, organizationId: Long) {
         val user: User =
             userRepository.findById(userId).orElseThrow { ApplicationException.of(Errors.USER_NOT_FOUND) }!!
-        val organization = organizationRepository.findById(organizationId)
+        user.currentOrganization = organizationRepository.findById(organizationId)
             .orElseThrow { ApplicationException.of(Errors.ORGANIZATION_NOT_FOUND) }
-        user.currentOrganization = organization
         userRepository.save(user)
     }
 
@@ -118,6 +115,5 @@ class UserService(
         userRepository.save(userDto.toEntity(User::class))
         return userDto
     }
-
 
 }

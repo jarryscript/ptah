@@ -4,6 +4,7 @@ import com.ptah.dto.userprofiling.CreateOrganizationRequest
 import com.ptah.dto.userprofiling.CreateOrganizationResponse
 import com.ptah.service.userprofiling.OrganizationService
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -14,6 +15,6 @@ class OrganizationController(
 ) {
 
     @PostMapping
-    fun createOrganization(createOrganizationRequest: CreateOrganizationRequest): CreateOrganizationResponse =
+    fun createOrganization(@RequestBody createOrganizationRequest: CreateOrganizationRequest): CreateOrganizationResponse =
         organizationService.createOrganization(createOrganizationRequest)
 }
