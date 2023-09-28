@@ -3,7 +3,14 @@
 :-------------------------:|:-------------------------:
 
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) 
+[![license](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge&)](./LICENSE)
+
+![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql)
+![Kotlin](https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin)
+![Vue](https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs)
+![SpringBoot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)
+![Gradle](https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger)
 ## Getting Started
 
 ### Prerequisites
