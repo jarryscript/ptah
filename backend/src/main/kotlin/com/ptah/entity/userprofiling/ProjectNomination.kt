@@ -5,13 +5,8 @@ import com.ptah.entity.project.Project
 import jakarta.persistence.*
 
 @Entity
-class ProjectNomination : BaseEntity() {
-    @ManyToOne
-    var  user: User? = null
-
-    @ManyToOne
-    var  project: Project? = null
-
-    @Enumerated(EnumType.STRING)
-    var  projectRole: ProjectRole? = null
-}
+class ProjectNomination(
+    @ManyToOne var user: User,
+    @ManyToOne var project: Project,
+    @Enumerated(EnumType.STRING) var projectRole: ProjectRole
+) : BaseEntity()

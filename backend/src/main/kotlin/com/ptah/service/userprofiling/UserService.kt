@@ -23,8 +23,6 @@ class UserService(
     private var projectNominationRepository: ProjectNominationRepository,
     private var organizationNominationService: OrganizationNominationService,
     private var organizationNominationRepository: OrganizationNominationRepository
-
-
 ) {
     fun register(registerRequest: RegisterRequest): UserDto {
         validateRegisterRequest(registerRequest)

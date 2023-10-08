@@ -53,7 +53,6 @@ import java.util.*
 class AccountingService(
     private var transactionRepository: TransactionRepository, private var accountRepository: AccountRepository
 ) {
-
     fun withdrawal(account: Account, amount: BigDecimal) {
         validateAccountForWithdrawal(account, amount)
         updateAccountBalanceForWithdrawal(account, amount)
@@ -72,7 +71,7 @@ class AccountingService(
     }
 
     fun getSystemAccount() = accountRepository.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
-
+    fun getAccountByOwnerId(ownerId:Long) = accountRepository.findByOwnerId(ownerId)
 
     fun createSystemAccount(): Account {
         val systemAccount = Account(

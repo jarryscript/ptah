@@ -12,5 +12,5 @@ class Account(
     var name: String? = null,
     var balance: BigDecimal? = null,
     @OneToOne
-    var accountOwner: Participant? = null
+    var owner: Participant? = null
 ) : BaseEntity()

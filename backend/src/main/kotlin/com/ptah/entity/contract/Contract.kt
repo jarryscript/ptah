@@ -8,14 +8,14 @@ import jakarta.persistence.ManyToOne
 import java.math.BigDecimal
 
 @Entity
-class Contract : BaseEntity() {
-    @ManyToOne
-    val partyA: Participant? = null
+class Contract(
+    @ManyToOne var partyA: Participant,
 
-    @ManyToOne
-    val partyB: Participant? = null
-    val amount: BigDecimal? = null
+    @ManyToOne val partyB: Participant, val amount: BigDecimal,
 
-    @Enumerated(value = EnumType.STRING)
-    val type: ContractType? = null
-}
+    @Enumerated(value = EnumType.STRING) val type: ContractType,
+
+    @Enumerated(value = EnumType.STRING) var status: ContractStatus
+) : BaseEntity()
+
+

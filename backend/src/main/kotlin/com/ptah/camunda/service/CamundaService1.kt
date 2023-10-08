@@ -8,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class CamundaService {
-    @Autowired
-    lateinit var processEngine: ProcessEngine
-
-    @Autowired
-    lateinit var runtimeService: RuntimeService
+class CamundaService(
+    private var processEngine: ProcessEngine, private var runtimeService: RuntimeService
+) {
     fun startWorkflow(processDefinitionKey: String?, variables: Map<String, Any?>?): Process {
         val processInstanceId =
             runtimeService.startProcessInstanceByKey(processDefinitionKey, variables).processInstanceId
