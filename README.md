@@ -1,5 +1,4 @@
-# Ptah
-![img.png](backend/doc/assets/logo.png) | Ptah is an Egyptian creator god who conceived the world and brought it into being through the creative power of speech.<br/> This project is a Kotlin Spring Boot application that blablabla
+![img.png](backend/doc/assets/logo.png) | Ptah is an Egyptian creator god who conceived the world and brought it into being through the creative power of speech.<br/> The Ptah system is a web application for construction project management
 :-------------------------:|:-------------------------:
 
 
@@ -38,7 +37,6 @@ The project is providing backend services(APIs).
 
 Once the project is running, you can visit [http://localhost:8080/ptah/swagger-ui/index.html](http://localhost:8080/ptah/swagger-ui/index.html) to check all exposed APIs.
 
-To experience end-to-end features, please get frontend application (React) from [https://github.com/jarryscript/ptah-fe](https://github.com/jarryscript/ptah-fe)
 
 ### Development
 
