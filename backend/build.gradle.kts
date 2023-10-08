@@ -47,6 +47,7 @@ dependencies {
     implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:7.20.0-alpha5")
     implementation("com.aliyun.oss:aliyun-sdk-oss:3.17.1")
     implementation("org.postgresql:postgresql")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 
     liquibaseRuntime("org.liquibase:liquibase-core:4.24.0")
     liquibaseRuntime("org.liquibase:liquibase-groovy-dsl:3.0.2")

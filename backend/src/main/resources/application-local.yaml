@@ -27,7 +27,7 @@ logging:
         org.springframework.security: TRACE
 
 security:
-    non-secure-paths: /user/login, /user/register, /user/logout, /error
+    non-secure-paths: /user/login, /user/register, /user/logout, /error, /swagger-ui/*, /v3/api-docs, /v3/api-docs/*
 
 liquibase:
     enabled: true
