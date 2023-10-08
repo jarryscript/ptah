@@ -1,0 +1,162 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Jarry Zhou" id="1696668047605-1">
+        <createTable tableName="account">
+            <column name="balance" type="numeric(38, 2)"/>
+            <column name="account_owner_id" type="BIGINT"/>
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="account_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-2">
+        <createTable tableName="authority_mapping">
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="authority_mapping_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="authorities" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="role" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-3">
+        <createTable tableName="contact_info">
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="contact_info_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="address1" type="VARCHAR(255)"/>
+            <column name="address2" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="postal_code" type="VARCHAR(255)"/>
+            <column name="province" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-4">
+        <createTable tableName="contract">
+            <column name="amount" type="numeric(38, 2)"/>
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="contract_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="partya_id" type="BIGINT"/>
+            <column name="partyb_id" type="BIGINT"/>
+            <column name="type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-5">
+        <createTable tableName="mile_stone">
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="end_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="mile_stone_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="project_id" type="BIGINT"/>
+            <column name="start_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="comments" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="duration" type="numeric(21)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-6">
+        <createTable tableName="organization">
+            <column name="contact_info_id" type="BIGINT"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="organization_pkey"/>
+            </column>
+            <column name="business_code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-7">
+        <createTable tableName="organization_nomination">
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="organization_nomination_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="organization_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="organization_role" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-8">
+        <createTable tableName="participant">
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="participant_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-9">
+        <createTable tableName="project">
+            <column name="status" type="SMALLINT"/>
+            <column name="contact_info_id" type="BIGINT"/>
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="owner_id" type="BIGINT"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-10">
+        <createTable tableName="transaction">
+            <column name="amount" type="numeric(38, 2)"/>
+            <column name="account_id" type="BIGINT"/>
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transaction_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="direction" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-11">
+        <createTable tableName="user_journal">
+            <column name="created_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_journal_pkey"/>
+            </column>
+            <column name="last_updated_on" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="log" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Jarry Zhou" id="1696668047605-12">
+        <createTable tableName="users">
+            <column name="contact_info_id" type="BIGINT"/>
+            <column name="current_organization_id" type="BIGINT"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="avatar" type="VARCHAR(255)"/>
+            <column name="login" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: jdbc:postgresql://ep-lucky-queen-69256101.ap-southeast-1.aws.neon.tech/neondb?user=jarryscript&password=Q0l7YVmgzjaF
+        url: jdbc:postgresql://ep-lucky-queen-69256101.ap-southeast-1.aws.neon.tech/ptah?user=jarryscript&password=Q0l7YVmgzjaF
         driver-class-name: org.postgresql.Driver
         hikari:
             connection-timeout: 20000
@@ -10,8 +10,6 @@ spring:
             max-lifetime: 1800000
             pool-name: MyHikariPool
     jpa:
-        hibernate:
-            ddl-auto: update
         show-sql: true
         logging:
             level:
@@ -30,4 +28,10 @@ logging:
 
 security:
     non-secure-paths: /user/login, /user/register, /user/logout, /error
+
+liquibase:
+    enabled: true
+    datasources:
+        default:
+            change-log: 'classpath:db/liquibase-changelog.xml'
 

@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/project")
 class ProjectController(var projectService: ProjectService) {
     @PostMapping
-    @WithAuthority("platform-admin")
+    @WithAuthority("platform_admin")
     fun create(@RequestBody projectDto: ProjectDto) {
         projectService.create(projectDto)
     }
 
     @PutMapping
-    @WithAuthority("project-owner")
+    @WithAuthority("project_owner")
     fun update(@RequestBody projectDto: ProjectDto) {
         projectService.create(projectDto)
     }

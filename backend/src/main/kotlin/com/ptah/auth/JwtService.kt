@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 
+private const val ACCESS_TOKEN_EXPIRATION_TIME = 3600 * 24 * 3 * 1000L
+
 @Service
 class JwtService {
     @Autowired
@@ -26,7 +28,7 @@ class JwtService {
 
     fun generateToken(user: User): String {
         val token = JWTUtil.createToken(mapOf("login" to user.login, "id" to user.id), "PTAH".toByteArray())
-        redisService.setValue(generateTokenKey(user.login ?: ""), token)
+        redisService.setValue(generateTokenKey(user.login ?: ""), token, ACCESS_TOKEN_EXPIRATION_TIME)
         return token
     }
 }

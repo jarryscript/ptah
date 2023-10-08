@@ -3,6 +3,7 @@ package com.ptah.service.project
 import com.ptah.dto.project.ProjectDto
 import com.ptah.dto.userprofiling.UserDto
 import com.ptah.entity.project.Project
+import com.ptah.entity.project.ProjectStatus
 import com.ptah.entity.userprofiling.ProjectRole
 import com.ptah.repository.project.ProjectNominationRepository
 import com.ptah.repository.project.ProjectRepository
@@ -16,7 +17,7 @@ class ProjectService(
         ProjectDto(name = "").fromEntity(it?.project)
     }
 
-    fun create(projectDto: ProjectDto) = projectRepository.save(projectDto.toEntity(Project::class))
+    fun create(projectDto: ProjectDto) = projectRepository.save(projectDto.toEntity(Project::class).apply { status=ProjectStatus.PENDING })
 
     fun findUsersWithRoleInProject(projectRole: ProjectRole?, projectId: Long?): List<UserDto?> =
         projectNominationRepository.findByProjectRoleAndId(projectRole, projectId).map {

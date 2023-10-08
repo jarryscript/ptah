@@ -12,7 +12,7 @@ import com.ptah.repository.userprofiling.*
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
-import java.util.HashSet
+import kotlin.collections.HashSet
 
 @Service
 class UserService(
@@ -59,10 +59,10 @@ class UserService(
     private fun getRolesOfUser(user: User): MutableSet<String> {
         val roles: MutableSet<String> = with(HashSet<String>()) {
             addAll(projectNominationRepository.findByUserId(user.id).mapNotNull {
-                it?.projectRole?.name
+                it?.projectRole?.name?.lowercase()
             })
             addAll(organizationNominationRepository.findByUserId(user.id).mapNotNull {
-                it?.organizationRole?.name
+                it?.organizationRole?.name?.lowercase()
             })
             this
         }
@@ -70,9 +70,8 @@ class UserService(
     }
 
     private fun convertToGrantedAuthorities(authorityMappings: Set<AuthorityMapping?>): MutableSet<GrantedAuthority> {
-        return authorityMappings.mapNotNull { authorityMapping ->
-            authorityMapping?.role?.let { SimpleGrantedAuthority(it) }
-        }.toMutableSet()
+        return authorityMappings.filterNotNull().flatMap { it.authorities!! }.map { SimpleGrantedAuthority(it) }
+            .toMutableSet()
     }
 
     fun assignUserToOrganization(userId: Long, organizationId: Long, organizationRole: OrganizationRole) {

@@ -14,11 +14,11 @@ class AuthorizationController(var authorityService: AuthorityService) {
 
     @PostMapping
     fun addAuthorityToRole(@RequestBody authorityMappingData: AuthorityMappingDTO){
-        authorityService.addAuthorityMapping(authorityMappingData.role, authorityMappingData.authority)
+        authorityService.addAuthorityMapping(authorityMappingData.authority, authorityMappingData.role)
     }
 
     @DeleteMapping
     fun removeAuthorityToRole(@RequestBody authorityMappingData: AuthorityMappingDTO) {
-        authorityService.removeAuthorityMapping(authorityMappingData.role, authorityMappingData.authority)
+        authorityService.removeAuthorityMapping(authorityMappingData.authority, authorityMappingData.role)
     }
 }

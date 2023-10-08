@@ -23,7 +23,7 @@ class WithAuthorityAspect {
             .map { obj: GrantedAuthority -> obj.authority }
             .anyMatch { role: String -> role == withPermission.value }
         if (!hasPermission) {
-            throw SecurityException("Insufficient permissions for method invocation.")
+            throw com.ptah.common.exceptions.SecurityException()
         }
     }
 }

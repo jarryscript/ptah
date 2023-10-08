@@ -17,7 +17,9 @@ class AuthorityService(var authorizationMappingRepository: AuthorityMappingRepos
         validateAuthority(authority)
         validateRole(role)
         val authorityMapping = getAuthorityMappingByRole(role)
-        authorityMapping.authorities?.add(authority)
+        val newAuthorities = HashSet(authorityMapping.authorities)
+        newAuthorities.add(authority)
+        authorityMapping.authorities= newAuthorities
         authorizationMappingRepository.save(authorityMapping)
     }
 
