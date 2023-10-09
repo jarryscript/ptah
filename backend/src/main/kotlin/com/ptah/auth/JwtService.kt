@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 
-private const val ACCESS_TOKEN_EXPIRATION_TIME = 3600 * 24 * 3 * 1000L
+private const val ACCESS_TOKEN_EXPIRATION_TIME = 3600 * 24 * 3L
 
 @Service
 class JwtService {
