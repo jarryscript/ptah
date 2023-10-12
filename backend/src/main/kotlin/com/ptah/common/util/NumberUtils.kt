@@ -3,7 +3,6 @@ package com.ptah.common.util
 import java.math.BigDecimal
 import java.util.*
 
-object NumberUtils {
     fun isGreaterThan(numberA: BigDecimal?, numberB: BigDecimal?): Boolean {
         Objects.requireNonNull(numberA)
         Objects.requireNonNull(numberB)
@@ -18,4 +17,3 @@ object NumberUtils {
 
     fun isGreaterThanOrEqualsTo(numberA: BigDecimal?, numberB: BigDecimal?): Boolean =
         isGreaterThan(numberA, numberB) || numberA == numberB
-}

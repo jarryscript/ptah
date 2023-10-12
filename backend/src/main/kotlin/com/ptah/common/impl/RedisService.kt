@@ -2,12 +2,7 @@ package com.ptah.common.impl
 
 import com.ptah.common.CacheService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
-import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
-import org.springframework.data.redis.serializer.RedisSerializer
-import org.springframework.data.redis.serializer.StringRedisSerializer
 import org.springframework.stereotype.Service
 import java.util.*
 import java.util.concurrent.TimeUnit
