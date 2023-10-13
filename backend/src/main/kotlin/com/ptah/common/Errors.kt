@@ -6,6 +6,6 @@ enum class Errors(var code: String, @JvmField var message: String) {
     USER_NOT_FOUND("10002", "User not found"),
     ORGANIZATION_NOT_FOUND("10003", "Organization not found"),
     SYSTEM_ACCOUNT_NOT_FOUND("10003", "System account not found"),
-    INVALID_AUTHORITY("10004","Invalid authority"),
-    INVALID_ROLE("10005","Invalid role")
+    INVALID_AUTHORITY("10004", "Invalid authority"),
+    INVALID_ROLE("10005", "Invalid role")
 }

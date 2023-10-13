@@ -15,11 +15,14 @@ import java.io.IOException
 
 @Component
 class JwtAuthenticationFilter(
-    private val jwtService: JwtService, private val userDetailsService: UserDetailsService
+    private val jwtService: JwtService,
+    private val userDetailsService: UserDetailsService
 ) : OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
-        request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain
     ) {
         val authHeader = request.getHeader(AUTHORIZATION_HEADER)
         if (containsAuthorizationHeader(authHeader)) {

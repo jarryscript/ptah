@@ -25,7 +25,8 @@ class GlobalResponseHandler : ResponseBodyAdvice<Any?> {
     ): Any? {
         return if (data is String) {
             gson.toJson(GlobalResponse.success(data))
-        } else data as? GlobalResponse<*> ?: GlobalResponse.success(data)
+        } else {
+            data as? GlobalResponse<*> ?: GlobalResponse.success(data)
+        }
     }
-
 }

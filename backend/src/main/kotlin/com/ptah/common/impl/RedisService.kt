@@ -7,13 +7,11 @@ import org.springframework.stereotype.Service
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-
 @Service
 class RedisService : CacheService {
     @Autowired
     lateinit var redisTemplate: RedisTemplate<Any, Any>
     override fun getByKey(key: String?): String = getByKey(key, String::class.java)
-
 
     override fun <T> getByKey(key: String?, type: Class<T>): T {
         val value = redisTemplate.opsForValue()[key!!]
@@ -25,7 +23,7 @@ class RedisService : CacheService {
     }
 
     override fun setValue(key: String, value: Any, timeoutInSeconds: Long) {
-        redisTemplate.opsForValue().set(key, value, timeoutInSeconds,TimeUnit.SECONDS)
+        redisTemplate.opsForValue().set(key, value, timeoutInSeconds, TimeUnit.SECONDS)
     }
 
     override fun hasKey(key: String): Boolean {

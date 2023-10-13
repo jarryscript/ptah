@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class ContractService(
-    private var contractRepository: ContractRepository, private var accountingService: AccountingService
+    private var contractRepository: ContractRepository,
+    private var accountingService: AccountingService
 ) {
     fun createContract() {}
 

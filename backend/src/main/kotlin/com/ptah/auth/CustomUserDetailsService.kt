@@ -25,6 +25,5 @@ class CustomUserDetailsService : UserDetailsService {
             internalPassword = user.password
             id = user.id
         }
-
     } ?: throw UsernameNotFoundException(Errors.INVALID_CREDENTIALS.message)
 }

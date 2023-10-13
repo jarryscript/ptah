@@ -5,8 +5,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.ManyToOne
 
 @Entity
-class UserJournal :BaseEntity(){
+class UserJournal : BaseEntity() {
     @ManyToOne
-    var user : User?=null
-    var log : String ?=null
+    var user: User? = null
+    var log: String ? = null
 }

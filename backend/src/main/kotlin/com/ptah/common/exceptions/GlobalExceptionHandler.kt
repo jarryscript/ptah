@@ -11,22 +11,27 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<GlobalResponse<*>> =
-        ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(GlobalResponse<Any?>().apply {
-            code = HttpStatus.INTERNAL_SERVER_ERROR.value()
-            message = e.message?:e.stackTraceToString()
-        })
+        ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+            GlobalResponse<Any?>().apply {
+                code = HttpStatus.INTERNAL_SERVER_ERROR.value()
+                message = e.message ?: e.stackTraceToString()
+            }
+        )
 
     @ExceptionHandler(ApplicationException::class)
     fun handleApplicationRuntimeException(e: ApplicationException): ResponseEntity<GlobalResponse<*>> =
-        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(GlobalResponse<Any?>().apply {
-            message = e.message
-        })
-
+        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            GlobalResponse<Any?>().apply {
+                message = e.message
+            }
+        )
 
     @ExceptionHandler(SecurityException::class)
     fun handleAuthRuntimeException(e: SecurityException): ResponseEntity<GlobalResponse<*>> {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(GlobalResponse<Any?>().apply {
-            message = e.message
-        })
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
+            GlobalResponse<Any?>().apply {
+                message = e.message
+            }
+        )
     }
 }

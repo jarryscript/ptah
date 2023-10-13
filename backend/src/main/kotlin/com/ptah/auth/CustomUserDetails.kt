@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails
 class CustomUserDetails : UserDetails {
     var authorities: Set<GrantedAuthority>? = null
     var internalPassword: String? = null
-    var id:Long?=null
+    var id: Long? = null
 
     override fun getAuthorities(): Collection<GrantedAuthority> = authorities!!
     override fun getPassword(): String = internalPassword!!

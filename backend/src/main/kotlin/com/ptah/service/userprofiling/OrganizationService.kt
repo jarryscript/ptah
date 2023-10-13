@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class OrganizationService(
-    private var organizationRepository: OrganizationRepository, private var userService: UserService
+    private var organizationRepository: OrganizationRepository,
+    private var userService: UserService
 ) {
 
     fun createOrganization(createOrganizationRequest: CreateOrganizationRequest): CreateOrganizationResponse {
@@ -24,6 +25,4 @@ class OrganizationService(
         organizationRepository.save(createOrganizationRequest.toEntity(Organization::class))
 
     private fun validateCreateOrganizationRequest() {}
-
-
 }

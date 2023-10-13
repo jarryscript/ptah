@@ -4,12 +4,12 @@ import com.ptah.camunda.model.dto.Activity
 import com.ptah.camunda.model.dto.Process
 import org.camunda.bpm.engine.ProcessEngine
 import org.camunda.bpm.engine.RuntimeService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class CamundaService(
-    private var processEngine: ProcessEngine, private var runtimeService: RuntimeService
+    private var processEngine: ProcessEngine,
+    private var runtimeService: RuntimeService
 ) {
     fun startWorkflow(processDefinitionKey: String?, variables: Map<String, Any?>?): Process {
         val processInstanceId =
@@ -24,7 +24,8 @@ class CamundaService(
             val activityInstance = runtimeService.getActivityInstance(processInstanceId)
             val activities = activityInstance.childActivityInstances.map {
                 Activity(
-                    name = it.activityName, type = it.activityType
+                    name = it.activityName,
+                    type = it.activityType
                 )
             }
             return Process().apply {

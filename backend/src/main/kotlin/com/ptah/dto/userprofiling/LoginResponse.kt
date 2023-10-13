@@ -1,5 +1,3 @@
 package com.ptah.dto.userprofiling
 
-class LoginResponse( var accessToken: String? = null) {
-
-}
+class LoginResponse(var accessToken: String? = null)

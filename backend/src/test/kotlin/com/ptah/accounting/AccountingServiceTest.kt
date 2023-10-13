@@ -42,13 +42,14 @@ class AccountingServiceTest {
         every { transactionRepository.saveAll(any<Iterable<Transaction>>()) } answers {
             (it.invocation.args[0] as Iterable<Transaction>).toList()
         }
-
     }
 
     @Test
     fun withdrawal_ShouldWithdrawalSuccessfully_WhenWithdrawalAmountIsLessThanBalance() {
         val account = Account(
-            TEST_ACCOUNT_NAME, BigDecimal.TEN, mockk<Participant>()
+            TEST_ACCOUNT_NAME,
+            BigDecimal.TEN,
+            mockk<Participant>()
         )
         accountingService.withdrawal(account, BigDecimal.ONE)
         assertEquals(BigDecimal.valueOf(9), account.balance)
@@ -57,12 +58,15 @@ class AccountingServiceTest {
     @Test
     fun withdrawal_ShouldGetInsufficientFundException_WhenWithdrawalAmountIsGreaterThanBalance() {
         val account = Account(
-            TEST_ACCOUNT_NAME, BigDecimal.TEN, mockk<Participant>()
+            TEST_ACCOUNT_NAME,
+            BigDecimal.TEN,
+            mockk<Participant>()
         )
         assertThrows<ApplicationException> {
             Errors.INSUFFICIENT_FUND.message
             accountingService.withdrawal(
-                account, BigDecimal.TEN.multiply(BigDecimal.TEN)
+                account,
+                BigDecimal.TEN.multiply(BigDecimal.TEN)
             )
         }
     }
@@ -70,12 +74,13 @@ class AccountingServiceTest {
     @Test
     fun withdrawal_ShouldWithdrawalSuccessfully_WhenWithdrawalAmountEqualsToBalance() {
         val account = Account(
-            TEST_ACCOUNT_NAME, BigDecimal.TEN, mockk<Participant>()
+            TEST_ACCOUNT_NAME,
+            BigDecimal.TEN,
+            mockk<Participant>()
         )
         accountingService.withdrawal(account, BigDecimal.TEN)
         assertEquals(BigDecimal.ZERO, account.balance)
     }
-
 
     companion object {
         private const val TEST_ACCOUNT_NAME = "test"

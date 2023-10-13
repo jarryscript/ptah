@@ -8,7 +8,6 @@ import com.ptah.entity.accounting.Transaction
 import com.ptah.entity.accounting.TransactionDirection
 import com.ptah.repository.accounting.AccountRepository
 import com.ptah.repository.accounting.TransactionRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
@@ -51,7 +50,8 @@ import java.util.*
 @Transactional
 @Service
 class AccountingService(
-    private var transactionRepository: TransactionRepository, private var accountRepository: AccountRepository
+    private var transactionRepository: TransactionRepository,
+    private var accountRepository: AccountRepository
 ) {
     fun withdrawal(account: Account, amount: BigDecimal) {
         validateAccountForWithdrawal(account, amount)
@@ -71,11 +71,13 @@ class AccountingService(
     }
 
     fun getSystemAccount() = accountRepository.findById(SYSTEM_ACCOUNT_ID).orElseGet { createSystemAccount() }!!
-    fun getAccountByOwnerId(ownerId:Long) = accountRepository.findByOwnerId(ownerId)
+    fun getAccountByOwnerId(ownerId: Long) = accountRepository.findByOwnerId(ownerId)
 
     fun createSystemAccount(): Account {
         val systemAccount = Account(
-            "System", BigDecimal.TEN, null
+            "System",
+            BigDecimal.TEN,
+            null
         )
         systemAccount.id = SYSTEM_ACCOUNT_ID
         systemAccount.name = SYSTEM_ACCOUNT_NAME

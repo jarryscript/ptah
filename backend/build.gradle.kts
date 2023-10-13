@@ -7,10 +7,10 @@ plugins {
     id("org.springframework.boot") version "3.1.3"
     id("io.spring.dependency-management") version "1.1.3"
     id("org.liquibase.gradle") version "2.2.0"
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.jpa") version "1.8.22"
-
 }
 
 buildscript {
@@ -22,7 +22,6 @@ buildscript {
         classpath("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
     }
 }
-
 
 group = "com"
 version = "0.0.1-SNAPSHOT"
@@ -65,7 +64,6 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:4.0.0")
 }
 
-
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
@@ -97,7 +95,7 @@ liquibase {
                 "logLevel" to "info",
                 "changelogFile" to "src/main/resources/db/changelog.xml",
                 "excludeObjects" to "table:act_.*",
-                "url" to dbUrl,
+                "url" to dbUrl
             )
         }
     }

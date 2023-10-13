@@ -1,7 +1,12 @@
 package com.ptah.controller.userprofiling
 
 import com.ptah.auth.AuthenticationService
-import com.ptah.dto.userprofiling.*
+import com.ptah.dto.userprofiling.LoginRequest
+import com.ptah.dto.userprofiling.LoginResponse
+import com.ptah.dto.userprofiling.OrganizationNominationDTO
+import com.ptah.dto.userprofiling.RegisterRequest
+import com.ptah.dto.userprofiling.UserDto
+import com.ptah.dto.userprofiling.UserInfo
 import com.ptah.entity.userprofiling.OrganizationRole
 import com.ptah.service.userprofiling.UserService
 import com.ptah.util.SecurityUtil
@@ -29,10 +34,10 @@ class UserController {
     fun register(@RequestBody registerRequest: RegisterRequest): UserDto? = userService.register(registerRequest)
 
     @GetMapping("/info")
-    fun info() : UserInfo = userService.getUserInfo(SecurityUtil.currentUserId());
+    fun info(): UserInfo = userService.getUserInfo(SecurityUtil.currentUserId())
 
     @PostMapping("/organizationNomination")
-    fun assignUserToOrganization(@RequestBody organizationNominationDTO: OrganizationNominationDTO){
-        userService.assignUserToOrganization(organizationNominationDTO.userId,organizationNominationDTO.organizationId,OrganizationRole.valueOf(organizationNominationDTO.organizationRole.uppercase()))
+    fun assignUserToOrganization(@RequestBody organizationNominationDTO: OrganizationNominationDTO) {
+        userService.assignUserToOrganization(organizationNominationDTO.userId, organizationNominationDTO.organizationId, OrganizationRole.valueOf(organizationNominationDTO.organizationRole.uppercase()))
     }
 }

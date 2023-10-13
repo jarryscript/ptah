@@ -9,7 +9,6 @@ class SensitiveContentChecker : InitializingBean {
     private var stopWordsProvider: SensitiveWordsProvider? = null
     var isEnabled = true
 
-
     private fun addStopWord(words: List<String>?) {
         if (!words.isNullOrEmpty()) {
             val stopWords = words.flatMap { it.toCharArray().map { c -> charConvert(c) } }
@@ -89,11 +88,11 @@ class SensitiveContentChecker : InitializingBean {
                 if (temp == currentCharBackup) {
                     continue
                 }
-                //如果后面是停顿词，表示句子完了，跳过
+                // 如果后面是停顿词，表示句子完了，跳过
                 if (stopWordSet != null && stopWordSet.contains(temp)) {
                     continue
                 }
-                //在子节点中找字符对应的节点
+                // 在子节点中找字符对应的节点
                 node = node!!.querySub(temp)
                 if (node == null) {
                     break
@@ -120,13 +119,14 @@ class SensitiveContentChecker : InitializingBean {
         return String(textChars)
     }
 
-
     private fun internalReplacement(src: String?): String {
         return if (src.isNullOrEmpty()) {
             ""
-        } else src.replace("傻逼".toRegex(), "笨笨").replace("傻B".toRegex(), "笨笨").replace("傻缺".toRegex(), "笨笨")
-            .replace("煞笔".toRegex(), "笨笨").replace("煞逼".toRegex(), "笨笨").replace("傻笔".toRegex(), "笨笨")
-            .replace("傻x".toRegex(), "笨笨").replace("傻\\*".toRegex(), "笨笨")
+        } else {
+            src.replace("傻逼".toRegex(), "笨笨").replace("傻B".toRegex(), "笨笨").replace("傻缺".toRegex(), "笨笨")
+                .replace("煞笔".toRegex(), "笨笨").replace("煞逼".toRegex(), "笨笨").replace("傻笔".toRegex(), "笨笨")
+                .replace("傻x".toRegex(), "笨笨").replace("傻\\*".toRegex(), "笨笨")
+        }
 
         // 以下为例子
     }
@@ -184,13 +184,12 @@ class SensitiveContentChecker : InitializingBean {
         return r + if (r >= 'A'.code && r <= 'Z'.code) 32 else 0
     }
 
-    //初始化后开始加载词库到redis
+    // 初始化后开始加载词库到redis
     @Throws(Exception::class)
     override fun afterPropertiesSet() {
         addSensitiveWord(sensitiveWordsProvider!!.provide())
         addStopWord(stopWordsProvider!!.provide())
     }
-
 
     companion object {
         /**

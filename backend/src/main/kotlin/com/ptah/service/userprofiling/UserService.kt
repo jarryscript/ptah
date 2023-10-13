@@ -1,18 +1,23 @@
 package com.ptah.service.userprofiling
 
 import cn.hutool.core.lang.Validator
-import com.ptah.common.*
+import com.ptah.common.Errors
 import com.ptah.common.exceptions.ApplicationException
 import com.ptah.dto.userprofiling.RegisterRequest
 import com.ptah.dto.userprofiling.UserDto
 import com.ptah.dto.userprofiling.UserInfo
-import com.ptah.entity.userprofiling.*
+import com.ptah.entity.userprofiling.AuthorityMapping
+import com.ptah.entity.userprofiling.OrganizationRole
+import com.ptah.entity.userprofiling.User
 import com.ptah.repository.project.ProjectNominationRepository
-import com.ptah.repository.userprofiling.*
+import com.ptah.repository.userprofiling.AuthorityMappingRepository
+import com.ptah.repository.userprofiling.OrganizationNominationRepository
+import com.ptah.repository.userprofiling.OrganizationRepository
+import com.ptah.repository.userprofiling.UserJournalRepository
+import com.ptah.repository.userprofiling.UserRepository
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
-import kotlin.collections.HashSet
 
 @Service
 class UserService(
@@ -32,7 +37,8 @@ class UserService(
     private fun createUser(registerRequest: RegisterRequest) = UserDto(
         login = userRepository.save(
             User(
-                password = registerRequest.password, login = registerRequest.login
+                password = registerRequest.password,
+                login = registerRequest.login
             )
         ).login
     )
@@ -56,12 +62,16 @@ class UserService(
 
     private fun getRolesOfUser(user: User): MutableSet<String> {
         val roles: MutableSet<String> = with(HashSet<String>()) {
-            addAll(projectNominationRepository.findByUserId(user.id).mapNotNull {
-                it?.projectRole?.name?.lowercase()
-            })
-            addAll(organizationNominationRepository.findByUserId(user.id).mapNotNull {
-                it?.organizationRole?.name?.lowercase()
-            })
+            addAll(
+                projectNominationRepository.findByUserId(user.id).mapNotNull {
+                    it?.projectRole?.name?.lowercase()
+                }
+            )
+            addAll(
+                organizationNominationRepository.findByUserId(user.id).mapNotNull {
+                    it?.organizationRole?.name?.lowercase()
+                }
+            )
             this
         }
         return roles
@@ -75,11 +85,13 @@ class UserService(
     fun assignUserToOrganization(userId: Long, organizationId: Long, organizationRole: OrganizationRole) {
         val organizationNomination = organizationNominationService.getOrganizationNomination(userId, organizationId)
         organizationNominationService.updateOrganizationNomination(
-            organizationNomination, userId, organizationId, organizationRole
+            organizationNomination,
+            userId,
+            organizationId,
+            organizationRole
         )
         organizationNominationRepository.save(organizationNomination)
     }
-
 
     fun switchToOrganization(userId: Long, organizationId: Long) {
         val user: User = getUser(userId)
@@ -110,5 +122,4 @@ class UserService(
         userRepository.save(userDto.toEntity(User::class))
         return userDto
     }
-
 }

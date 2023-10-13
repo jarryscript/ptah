@@ -6,7 +6,6 @@ import jakarta.persistence.Entity
 import jakarta.persistence.OneToOne
 import java.math.BigDecimal
 
-
 @Entity
 class Account(
     var name: String? = null,

@@ -3,7 +3,8 @@ package com.ptah.common.impl
 import cn.hutool.core.util.SerializeUtil
 import com.aliyun.oss.OSS
 import com.aliyun.oss.OSSClientBuilder
-import com.ptah.common.*
+import com.ptah.common.Errors
+import com.ptah.common.ObjectStorageService
 import com.ptah.common.exceptions.ApplicationException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service

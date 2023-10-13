@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 class AuthorizationController(var authorityService: AuthorityService) {
 
     @PostMapping
-    fun addAuthorityToRole(@RequestBody authorityMappingData: AuthorityMappingDTO){
+    fun addAuthorityToRole(@RequestBody authorityMappingData: AuthorityMappingDTO) {
         authorityService.addAuthorityMapping(authorityMappingData.authority, authorityMappingData.role)
     }
 

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class AuthenticationService(
-    var userRepository: UserRepository, var jwtService: JwtService, var authenticationManager: AuthenticationManager
+    var userRepository: UserRepository,
+    var jwtService: JwtService,
+    var authenticationManager: AuthenticationManager
 ) {
     fun login(login: String?, password: String?): LoginResponse {
         authenticationManager.authenticate(UsernamePasswordAuthenticationToken(login, password))

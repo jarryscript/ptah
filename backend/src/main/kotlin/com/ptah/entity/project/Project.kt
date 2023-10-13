@@ -14,6 +14,7 @@ class Project : BaseEntity() {
 
     @OneToOne
     var owner: Participant? = null
+
     @Enumerated(EnumType.STRING)
     var status: ProjectStatus? = null
 

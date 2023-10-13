@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
@@ -16,8 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher
-import org.springframework.security.web.util.matcher.OrRequestMatcher
 import org.springframework.web.cors.CorsUtils
 
 @Configuration
@@ -32,8 +29,6 @@ class WebSecurityConfiguration {
     @Value("\${security.non-secure-paths:''}")
     lateinit var nonSecurePaths: List<String>
 
-
-
     @Bean
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -44,11 +39,10 @@ class WebSecurityConfiguration {
         }.sessionManagement {
             it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }.authenticationProvider(authenticationProvider()).addFilterBefore(
-            jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java
+            jwtAuthenticationFilter,
+            UsernamePasswordAuthenticationFilter::class.java
         ).build()
     }
-
-
 
     @Bean
     fun authenticationProvider(): AuthenticationProvider {

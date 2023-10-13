@@ -9,7 +9,6 @@ import com.ptah.entity.userprofiling.ProjectRole
 import com.ptah.repository.userprofiling.AuthorityMappingRepository
 import org.springframework.stereotype.Service
 
-
 @Service
 class AuthorityService(var authorizationMappingRepository: AuthorityMappingRepository) {
 
@@ -19,7 +18,7 @@ class AuthorityService(var authorizationMappingRepository: AuthorityMappingRepos
         val authorityMapping = getAuthorityMappingByRole(role)
         val newAuthorities = HashSet(authorityMapping.authorities)
         newAuthorities.add(authority)
-        authorityMapping.authorities= newAuthorities
+        authorityMapping.authorities = newAuthorities
         authorizationMappingRepository.save(authorityMapping)
     }
 

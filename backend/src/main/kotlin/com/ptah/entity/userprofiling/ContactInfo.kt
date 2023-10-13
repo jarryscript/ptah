@@ -4,7 +4,6 @@ import com.ptah.common.BaseEntity
 import jakarta.persistence.Entity
 
 @Entity
-
 class ContactInfo : BaseEntity() {
     var name: String? = null
     var address1: String? = null
