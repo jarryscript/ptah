@@ -1,15 +1,15 @@
 package com.github.jarryzhou.ptah.controller.userprofiling
 
-import com.ptah.auth.AuthenticationService
-import com.ptah.dto.userprofiling.LoginRequest
-import com.ptah.dto.userprofiling.LoginResponse
-import com.ptah.dto.userprofiling.OrganizationNominationDTO
-import com.ptah.dto.userprofiling.RegisterRequest
-import com.ptah.dto.userprofiling.UserDto
-import com.ptah.dto.userprofiling.UserInfo
-import com.ptah.entity.userprofiling.OrganizationRole
-import com.ptah.service.userprofiling.UserService
-import com.ptah.util.SecurityUtil
+import com.github.jarryzhou.ptah.auth.AuthenticationService
+import com.github.jarryzhou.ptah.dto.userprofiling.LoginRequest
+import com.github.jarryzhou.ptah.dto.userprofiling.LoginResponse
+import com.github.jarryzhou.ptah.dto.userprofiling.OrganizationNominationDTO
+import com.github.jarryzhou.ptah.dto.userprofiling.RegisterRequest
+import com.github.jarryzhou.ptah.dto.userprofiling.UserDto
+import com.github.jarryzhou.ptah.dto.userprofiling.UserInfo
+import com.github.jarryzhou.ptah.entity.userprofiling.OrganizationRole
+import com.github.jarryzhou.ptah.service.userprofiling.UserService
+import com.github.jarryzhou.ptah.util.SecurityUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping

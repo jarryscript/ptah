@@ -3,9 +3,9 @@ package com.github.jarryzhou.ptah.common.impl
 import cn.hutool.core.util.SerializeUtil
 import com.aliyun.oss.OSS
 import com.aliyun.oss.OSSClientBuilder
-import com.ptah.common.Errors
-import com.ptah.common.ObjectStorageService
-import com.ptah.common.exceptions.ApplicationException
+import com.github.jarryzhou.ptah.common.Errors
+import com.github.jarryzhou.ptah.common.ObjectStorageService
+import com.github.jarryzhou.ptah.common.exceptions.ApplicationException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.util.*

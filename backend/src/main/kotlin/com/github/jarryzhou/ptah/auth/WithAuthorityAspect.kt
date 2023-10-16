@@ -23,7 +23,7 @@ class WithAuthorityAspect {
             .map { obj: GrantedAuthority -> obj.authority }
             .anyMatch { role: String -> role == withPermission.value }
         if (!hasPermission) {
-            throw com.ptah.common.exceptions.SecurityException()
+            throw com.github.jarryzhou.ptah.common.exceptions.SecurityException()
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.github.jarryzhou.ptah.auth
 
-import com.ptah.dto.userprofiling.LoginResponse
-import com.ptah.repository.userprofiling.UserRepository
+import com.github.jarryzhou.ptah.dto.userprofiling.LoginResponse
+import com.github.jarryzhou.ptah.repository.userprofiling.UserRepository
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Service

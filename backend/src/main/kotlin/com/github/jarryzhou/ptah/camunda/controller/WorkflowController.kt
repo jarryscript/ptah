@@ -1,8 +1,8 @@
 package com.github.jarryzhou.ptah.camunda.controller
 
-import com.ptah.camunda.model.dto.Message
-import com.ptah.camunda.model.dto.Process
-import com.ptah.camunda.service.CamundaService
+import com.github.jarryzhou.ptah.camunda.model.dto.Message
+import com.github.jarryzhou.ptah.camunda.model.dto.Process
+import com.github.jarryzhou.ptah.camunda.service.CamundaService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

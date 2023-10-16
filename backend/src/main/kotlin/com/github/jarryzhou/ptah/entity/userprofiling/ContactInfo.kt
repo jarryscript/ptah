@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.entity.userprofiling
 
-import com.ptah.common.BaseEntity
+import com.github.jarryzhou.ptah.common.BaseEntity
 import jakarta.persistence.Entity
 
 @Entity

@@ -1,8 +1,8 @@
 package com.github.jarryzhou.ptah.util
 
-import com.ptah.auth.CustomUserDetails
-import com.ptah.common.Errors
-import com.ptah.common.exceptions.ApplicationException
+import com.github.jarryzhou.ptah.auth.CustomUserDetails
+import com.github.jarryzhou.ptah.common.Errors
+import com.github.jarryzhou.ptah.common.exceptions.ApplicationException
 import org.springframework.security.core.context.SecurityContextHolder
 
 class SecurityUtil {

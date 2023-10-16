@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.entity.project
 
-import com.ptah.common.BaseEntity
+import com.github.jarryzhou.ptah.common.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.ManyToOne
 import java.time.Duration

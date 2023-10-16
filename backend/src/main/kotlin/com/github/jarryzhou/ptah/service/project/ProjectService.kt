@@ -1,15 +1,15 @@
 package com.github.jarryzhou.ptah.service.project
 
-import com.ptah.dto.project.ProjectDto
-import com.ptah.dto.userprofiling.UserDto
-import com.ptah.entity.project.Project
-import com.ptah.entity.project.ProjectStatus
-import com.ptah.entity.userprofiling.ProjectNomination
-import com.ptah.entity.userprofiling.ProjectRole
-import com.ptah.entity.userprofiling.User
-import com.ptah.repository.project.ProjectNominationRepository
-import com.ptah.repository.project.ProjectRepository
-import com.ptah.util.SecurityUtil
+import com.github.jarryzhou.ptah.dto.project.ProjectDto
+import com.github.jarryzhou.ptah.dto.userprofiling.UserDto
+import com.github.jarryzhou.ptah.entity.project.Project
+import com.github.jarryzhou.ptah.entity.project.ProjectStatus
+import com.github.jarryzhou.ptah.entity.userprofiling.ProjectNomination
+import com.github.jarryzhou.ptah.entity.userprofiling.ProjectRole
+import com.github.jarryzhou.ptah.entity.userprofiling.User
+import com.github.jarryzhou.ptah.repository.project.ProjectNominationRepository
+import com.github.jarryzhou.ptah.repository.project.ProjectRepository
+import com.github.jarryzhou.ptah.util.SecurityUtil
 import org.springframework.stereotype.Service
 
 @Service

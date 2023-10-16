@@ -1,12 +1,12 @@
 package com.github.jarryzhou.ptah.service.userprofiling
 
-import com.ptah.common.Errors
-import com.ptah.common.exceptions.ApplicationException
-import com.ptah.entity.userprofiling.Authority
-import com.ptah.entity.userprofiling.AuthorityMapping
-import com.ptah.entity.userprofiling.OrganizationRole
-import com.ptah.entity.userprofiling.ProjectRole
-import com.ptah.repository.userprofiling.AuthorityMappingRepository
+import com.github.jarryzhou.ptah.common.Errors
+import com.github.jarryzhou.ptah.common.exceptions.ApplicationException
+import com.github.jarryzhou.ptah.entity.userprofiling.Authority
+import com.github.jarryzhou.ptah.entity.userprofiling.AuthorityMapping
+import com.github.jarryzhou.ptah.entity.userprofiling.OrganizationRole
+import com.github.jarryzhou.ptah.entity.userprofiling.ProjectRole
+import com.github.jarryzhou.ptah.repository.userprofiling.AuthorityMappingRepository
 import org.springframework.stereotype.Service
 
 @Service

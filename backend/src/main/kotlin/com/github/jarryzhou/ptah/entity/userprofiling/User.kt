@@ -1,7 +1,7 @@
 package com.github.jarryzhou.ptah.entity.userprofiling
 
-import com.ptah.auth.PasswordEncryptor
-import com.ptah.entity.contract.Participant
+import com.github.jarryzhou.ptah.auth.PasswordEncryptor
+import com.github.jarryzhou.ptah.entity.contract.Participant
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToOne

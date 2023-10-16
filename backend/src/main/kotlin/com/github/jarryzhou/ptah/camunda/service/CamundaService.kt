@@ -1,7 +1,7 @@
 package com.github.jarryzhou.ptah.camunda.service
 
-import com.ptah.camunda.model.dto.Activity
-import com.ptah.camunda.model.dto.Process
+import com.github.jarryzhou.ptah.camunda.model.dto.Activity
+import com.github.jarryzhou.ptah.camunda.model.dto.Process
 import org.camunda.bpm.engine.ProcessEngine
 import org.camunda.bpm.engine.RuntimeService
 import org.springframework.stereotype.Service

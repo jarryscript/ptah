@@ -1,8 +1,8 @@
 package com.github.jarryzhou.ptah.controller.userprofiling
 
-import com.ptah.dto.userprofiling.CreateOrganizationRequest
-import com.ptah.dto.userprofiling.CreateOrganizationResponse
-import com.ptah.service.userprofiling.OrganizationService
+import com.github.jarryzhou.ptah.dto.userprofiling.CreateOrganizationRequest
+import com.github.jarryzhou.ptah.dto.userprofiling.CreateOrganizationResponse
+import com.github.jarryzhou.ptah.service.userprofiling.OrganizationService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

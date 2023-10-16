@@ -1,5 +1,5 @@
 package com.github.jarryzhou.ptah.dto.userprofiling
 
-import com.ptah.common.BaseDto
+import com.github.jarryzhou.ptah.common.BaseDto
 
 class CreateOrganizationRequest(var name: String) : BaseDto()

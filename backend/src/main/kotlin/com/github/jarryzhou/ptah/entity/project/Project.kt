@@ -1,8 +1,8 @@
 package com.github.jarryzhou.ptah.entity.project
 
-import com.ptah.common.BaseEntity
-import com.ptah.entity.contract.Participant
-import com.ptah.entity.userprofiling.ContactInfo
+import com.github.jarryzhou.ptah.common.BaseEntity
+import com.github.jarryzhou.ptah.entity.contract.Participant
+import com.github.jarryzhou.ptah.entity.userprofiling.ContactInfo
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated

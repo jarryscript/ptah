@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.repository.accounting
 
-import com.ptah.entity.accounting.Account
+import com.github.jarryzhou.ptah.entity.accounting.Account
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

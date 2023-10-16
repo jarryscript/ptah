@@ -1,7 +1,7 @@
 package com.github.jarryzhou.ptah.controller.userprofiling
 
-import com.ptah.dto.userprofiling.AuthorityMappingDTO
-import com.ptah.service.userprofiling.AuthorityService
+import com.github.jarryzhou.ptah.dto.userprofiling.AuthorityMappingDTO
+import com.github.jarryzhou.ptah.service.userprofiling.AuthorityService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

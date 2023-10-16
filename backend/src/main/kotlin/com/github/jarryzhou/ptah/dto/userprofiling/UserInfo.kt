@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.dto.userprofiling
 
-import com.ptah.entity.userprofiling.UserJournal
+import com.github.jarryzhou.ptah.entity.userprofiling.UserJournal
 
 class UserInfo {
     var user: UserDto ? = null

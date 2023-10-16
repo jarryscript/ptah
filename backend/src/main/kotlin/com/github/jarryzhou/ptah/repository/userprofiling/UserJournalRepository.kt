@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.repository.userprofiling
 
-import com.ptah.entity.userprofiling.UserJournal
+import com.github.jarryzhou.ptah.entity.userprofiling.UserJournal
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

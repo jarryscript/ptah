@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.repository.userprofiling
 
-import com.ptah.entity.userprofiling.OrganizationNomination
+import com.github.jarryzhou.ptah.entity.userprofiling.OrganizationNomination
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface OrganizationNominationRepository : JpaRepository<OrganizationNomination?, Long?> {

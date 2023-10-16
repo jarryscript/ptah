@@ -1,11 +1,11 @@
 package com.github.jarryzhou.ptah.service.contract
 
-import com.ptah.common.Errors
-import com.ptah.common.exceptions.ApplicationException
-import com.ptah.entity.contract.Contract
-import com.ptah.entity.contract.ContractStatus
-import com.ptah.repository.contract.ContractRepository
-import com.ptah.service.accounting.AccountingService
+import com.github.jarryzhou.ptah.common.Errors
+import com.github.jarryzhou.ptah.common.exceptions.ApplicationException
+import com.github.jarryzhou.ptah.entity.contract.Contract
+import com.github.jarryzhou.ptah.entity.contract.ContractStatus
+import com.github.jarryzhou.ptah.repository.contract.ContractRepository
+import com.github.jarryzhou.ptah.service.accounting.AccountingService
 import org.springframework.stereotype.Service
 
 @Service

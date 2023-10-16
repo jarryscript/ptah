@@ -1,8 +1,8 @@
 package com.github.jarryzhou.ptah.controller.project
 
-import com.ptah.auth.WithAuthority
-import com.ptah.dto.project.ProjectDto
-import com.ptah.service.project.ProjectService
+import com.github.jarryzhou.ptah.auth.WithAuthority
+import com.github.jarryzhou.ptah.dto.project.ProjectDto
+import com.github.jarryzhou.ptah.service.project.ProjectService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody

@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.entity.userprofiling
 
-import com.ptah.entity.contract.Participant
+import com.github.jarryzhou.ptah.entity.contract.Participant
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToOne
 

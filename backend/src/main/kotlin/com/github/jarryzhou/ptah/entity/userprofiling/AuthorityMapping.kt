@@ -1,7 +1,7 @@
 package com.github.jarryzhou.ptah.entity.userprofiling
 
-import com.ptah.common.BaseEntity
-import com.ptah.common.converter.StringListConverter
+import com.github.jarryzhou.ptah.common.BaseEntity
+import com.github.jarryzhou.ptah.common.converter.StringListConverter
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 

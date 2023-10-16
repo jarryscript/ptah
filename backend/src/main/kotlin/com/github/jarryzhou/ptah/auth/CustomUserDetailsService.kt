@@ -1,8 +1,8 @@
 package com.github.jarryzhou.ptah.auth
 
-import com.ptah.common.Errors
-import com.ptah.repository.userprofiling.UserRepository
-import com.ptah.service.userprofiling.UserService
+import com.github.jarryzhou.ptah.common.Errors
+import com.github.jarryzhou.ptah.repository.userprofiling.UserRepository
+import com.github.jarryzhou.ptah.service.userprofiling.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

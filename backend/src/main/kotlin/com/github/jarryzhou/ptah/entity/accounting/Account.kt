@@ -1,7 +1,7 @@
 package com.github.jarryzhou.ptah.entity.accounting
 
-import com.ptah.common.BaseEntity
-import com.ptah.entity.contract.Participant
+import com.github.jarryzhou.ptah.common.BaseEntity
+import com.github.jarryzhou.ptah.entity.contract.Participant
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToOne
 import java.math.BigDecimal

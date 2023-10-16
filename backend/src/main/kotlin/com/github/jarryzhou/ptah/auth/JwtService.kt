@@ -1,8 +1,8 @@
 package com.github.jarryzhou.ptah.auth
 
 import cn.hutool.jwt.JWTUtil
-import com.ptah.common.impl.RedisService
-import com.ptah.entity.userprofiling.User
+import com.github.jarryzhou.ptah.common.impl.RedisService
+import com.github.jarryzhou.ptah.entity.userprofiling.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service

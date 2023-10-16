@@ -1,13 +1,13 @@
 package com.github.jarryzhou.ptah.accounting
 
-import com.ptah.common.Errors
-import com.ptah.common.exceptions.ApplicationException
-import com.ptah.entity.accounting.Account
-import com.ptah.entity.accounting.Transaction
-import com.ptah.entity.contract.Participant
-import com.ptah.repository.accounting.AccountRepository
-import com.ptah.repository.accounting.TransactionRepository
-import com.ptah.service.accounting.AccountingService
+import com.github.jarryzhou.ptah.common.Errors
+import com.github.jarryzhou.ptah.common.exceptions.ApplicationException
+import com.github.jarryzhou.ptah.entity.accounting.Account
+import com.github.jarryzhou.ptah.entity.accounting.Transaction
+import com.github.jarryzhou.ptah.entity.contract.Participant
+import com.github.jarryzhou.ptah.repository.accounting.AccountRepository
+import com.github.jarryzhou.ptah.repository.accounting.TransactionRepository
+import com.github.jarryzhou.ptah.service.accounting.AccountingService
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK

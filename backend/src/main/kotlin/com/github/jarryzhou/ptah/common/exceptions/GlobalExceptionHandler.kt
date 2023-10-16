@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.common.exceptions
 
-import com.ptah.common.payload.GlobalResponse
+import com.github.jarryzhou.ptah.common.payload.GlobalResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice

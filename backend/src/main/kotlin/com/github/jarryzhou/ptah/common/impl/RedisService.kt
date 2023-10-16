@@ -1,6 +1,6 @@
 package com.github.jarryzhou.ptah.common.impl
 
-import com.ptah.common.CacheService
+import com.github.jarryzhou.ptah.common.CacheService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
