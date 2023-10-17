@@ -10,7 +10,6 @@ class CustomUserDetails : UserDetails {
 
     override fun getAuthorities(): Collection<GrantedAuthority> = authorities!!
     override fun getPassword(): String = internalPassword!!
-
     override fun getUsername(): String = ""
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true

@@ -1,0 +1,41 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  watch:
+    types: [ started ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Setup Java environment
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Watch for Changes
+        uses: jakejarvis/watch-files-action@v3.1.2
+        with:
+          path: 'backend/*'
+          flags: i
+          event_types: 'all'
+
+      - name: Build application
+        run: gradle clean build
+
+      - name: Setup SSH Keys
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+      - name: Deploy
+        run: |
+          scp backend/build/libs/ptah-0.0.1-SNAPSHOT.jar root@${{ secrets.SERVER_ADDRESS }}:/var/www/html

@@ -1,0 +1,46 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  watch:
+    types: [ started ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Watch for Changes
+        uses: jakejarvis/watch-files-action@v3.1.2
+        with:
+          path: 'frontend/*'
+          flags: i
+          event_types: 'all'
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'v18.17.0'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Build
+        run:
+          cd frontend/
+          yarn install && yarn build
+
+      - name: Setup SSH Keys
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+      - name: Deploy to Ubuntu Server
+        run: |
+          scp -r dist/* root@${{secrets.SERVER_ADDRESS}}:/var/www/html
