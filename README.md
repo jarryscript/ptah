@@ -1,4 +1,4 @@
-![img.png](backend/doc/assets/logo.png) | Ptah is an Egyptian creator god who conceived the world and brought it into being through the creative power of speech.<br/> The Ptah system is a web application for construction project management. And it is also my personal code kata that I can write basic codes which is very relax~
+![img.png](backend/doc/assets/logo.png) | The Ptah system is a web application for construction project management. And it is also my personal code kata that I can write basic codes which is very relax~
 :-------------------------:|:-------------------------:
 
 
